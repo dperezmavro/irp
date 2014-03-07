@@ -64,7 +64,7 @@ By combining an 8-bit RISC CPU with In-System Self-Programmable Flash on a monol
 	\subsubsection{Memory Organisation}
 	The 644/1284 are equipped with an EEPROM, flash memory, SRAM, a large number of general purpose registers and a large number of I/O registers (in order to be able to perform I/O) and all memory (including I/O memory mapped images) is linear, i.e. it follows the flat memory model.
 	
-	The flash memory is separated into two regions, the bootloader section and application code section. The boundary between the two sections can be configured by programming the appropriate fuses, and the page size can also be configured that way as well. Both sections hold code, however code residing in the bootloader section can execute a special instruction (\texttt{SPM}\footnote{SPM = Store Program Code}) which allows the bootloader code to write to \textit{any} section in the flash memory and hence possibly modify itself(designed for purposes such as firmware upgrades). The bootloader code can be triggered by a direct jump from the application section or by programming the reset vector via the reset fuse to point to the appripriate section of the bootloader code. 
+	The flash memory is separated into two regions, the bootloader section and application code section. The boundary between the two sections can be configured by programming the appropriate fuses, and the page size can also be configured that way as well. Both sections hold code, however code residing in the bootloader section can execute a special instruction (\texttt{SPM}\footnote{SPM = Store Program Code}) which allows the bootloader code to write to \textit{any} section in the flash memory and hence possibly modify itself(designed for purposes such as firmware upgrades). The bootloader code can be triggered by a direct jump from the application section or by programming the reset vector via the reset fuse to point to the appropriate section of the bootloader code. 
 	
 	The EEPROM is memory for data that needs to persist between reboots of the MCU and hence it is (widely) used to hold configuration variables and other non-temporary preferences the application code (or the bootloader) may need, having an average lifespan is 100,000 write cycles per page. 
 	
@@ -145,7 +145,7 @@ Table \ref{table:lock_bits}	 provides an outline of the available Lock bits prov
 	\begin{itemize}
 		\item microprobing \\
 		\item side-channel attacks \\
-		\item software attacks (exploit communication protocols or crypto implmentation and such) \\
+		\item software attacks (exploit communication protocols or crypto implementation and such) \\
 		\item reverse engineering of hardware\\
 		\item fault generation (power/clock glitches ) \\
 	\end{itemize}
