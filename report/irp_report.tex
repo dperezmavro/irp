@@ -47,17 +47,24 @@
 	
 
 \section{The ATMega MCU Series}
-	The ATmega series of MCUs is a popular microcontroller family for a number of reasons, offering a combination of a reasonably powerful MCU at a low price. They offer a variety of clock speeds and memory capacities (with processor speeds of up to 20MHz and up to 256Kb of flash memory) and large operating voltage windows, hence making them both power efficient as well as enabling them to interact with peripherals with different operating voltages\footnote{info here \href{https://www.newbiehack.com/MicrocontrollersAlternativePowerSources.aspx}{https://www.newbiehack.com}}\footnote{taken from:\href{http://www.atmel.com/v2PFResults.aspx}{http://www.atmel.com/v2PFResults.aspx}}.
+	The ATmega series of MCUs is a popular microcontroller offering a combination of a reasonably powerful MCU at a low price. They offer a variety of clock speeds and memory capacities (with processor speeds of up to 20MHz and up to 256Kb of flash memory) and large operating voltage windows, hence making them both power efficient as well as enabling them to interact with peripherals with different operating voltages\footnote{info here \href{https://www.newbiehack.com/MicrocontrollersAlternativePowerSources.aspx}{https://www.newbiehack.com}}\footnote{taken from:\href{http://www.atmel.com/v2PFResults.aspx}{http://www.atmel.com/v2PFResults.aspx}}.
 	
-	Furthermore, developing software for an AVR board is very easy, a further incentive to use an AVR over other popular options. In particular, the AVR MCUs benefit from the free \texttt{avr-libc} high-performance C run-time library(optimised for the AVR), the \texttt{avr-gcc} and \texttt{avr-gdb} compiler and debugger(both based on very popular and high quality GNU software tools), the \texttt{avrdude} programming software(or Atmel's proprietary \texttt{AVRStudio}) and \texttt{Simulavr} simulator software. In addition to these community tools, Atmel provides proprietary APIs for interacting with the AVR and the developers can choose from a wide variety of programmer units available for working with the AVR MCUs.
+	Furthermore, developing software for an AVR board is very easy, a further incentive to use an AVR over other popular options. In particular, the AVR MCUs benefit from the free \texttt{avr-libc} high-performance C run-time library(optimised for the AVR RISC architecture), the \texttt{avr-gcc} and \texttt{avr-gdb} compiler and debugger(both based on very popular and high quality GNU software tools), the \texttt{avrdude} programming software(or Atmel's proprietary \texttt{AVRStudio}) and \texttt{Simulavr} simulator software. In addition to these community tools, Atmel provides proprietary APIs for interacting with the AVR and the developers can choose from a wide variety of programmer units available for working with the AVR MCUs\cite{book:practical_avr}.
 	
-	\subsection{AVR Predecessors to the ATmega Series}
-	apparently sergei has cracked them already
-	maybe talk about support(libraries/tools) here ?? \cite{website:scorobogatov_breaking_copy_protection}
-	\subsection{ATMega Architecture and Features}				
-By combining an 8-bit RISC CPU with In-System Self-Programmable Flash on a monolithic chip,the Atmel ATmega644 is a powerful microcontroller that provides a highly flexible and cost effective solution to many embedded control applications.The ATmega644 AVR is supported with a full suite of program and system development tools including: C compilers, macro assemblers, program debugger/simulators, in-circuit emulators, and evaluation kits.	
+	\subsection{Atmel AVR Series}
+	Atmel released the AVR series on the market in 1996(\cite{book:practical_avr}) and has since been delivering MCUs that are based around the RISC philosophy and have varied capabilities so that developers can find exactly what fits their needs. The AVR family constitutes of the following series\footnote{info:\href{http://en.wikipedia.org/wiki/Atmel_AVR}{http://en.wikipedia.org/wiki/Atmel\_AVR}}:
+	
+	\begin{itemize}
+	\item ATtiny \\
+	\item ATmega \\
+	\item ATxmega \\
+	\end{itemize}
+	
+as well as derivatives of the above, including 32-bit AVRs and application specific FPGAs\footnote{AV32 : \href{http://www.atmel.com/products/microcontrollers/avr/default.aspx}{http://www.atmel.com/products/microcontrollers/avr/default.aspx}}.
 
-	\subsubsection{Background and General Features}
+	\subsection{ATMega Architecture and Features}				
+
+	\subsubsection{Background and Features}
 	The ATmega series of MCUs is a relatively large family of microntroller units. However this paper focuses only on the ATmega644 and ATmega1284, [reasons for focus here]. The only difference between then 1284 and the 644 is that the 1284 has got more memory available and a summary of (some) of the features of the two units is give in Table \ref{table:avr_specs}[\citep{atmega644_manual},\citep{atmega1284_manual}]. 
 	
 	Both MCUs are an enhanced RISC Harvard architecture 8-bit CPU. Figure \ref{fig:architectures} shows the conceptual difference between a Von Neuman (most modern PCs) and a Harvard architecture, where the key distinction lies in the separation of application code and program data into different memory sections (Harvard) and tasking the CPU with distinguishing between code and data that lives in the same memory region (Von Neuman). The 644/1284 implement a Harvard architecture for both power and computational efficiency, as they are able to access more than one registers simultaneously (due to the physical wiring of the CPU) and hence are able to execute an instruction per cycle as once an instruction is executing the next one is pre-fetched and decoded. Their operating voltages can vary between 1.8V and 5.5V (maximum operating frequency 20 MHz).
@@ -136,6 +143,7 @@ Table \ref{table:lock_bits}	 provides an outline of the available Lock bits prov
 	
 \section{Current Attacks}
 	\subsection{Introduction}
+		apparently sergei has cracked them already \cite{website:scorobogatov_breaking_copy_protection}
 	mention attacks may be passive(observing input-$>$output mapping) or active (tamper with the aforementioned mapping in some useful way)
 	\subsection{Non-Invasive Attacks}
 	\subsection{Semi-Invasive Attacks}
