@@ -20,8 +20,8 @@
 \begin{document}
 	\maketitle
 	
-\section*{Abstract}
-	Give paper topic, objectives and conclusions reached.
+\section*{\emph{Abstract}}
+	\textbf{\emph{The most abstract abstract of all abstracts, full of abstractions.}}
 	
 
 \section{Introduction}
@@ -30,20 +30,14 @@
 	Perhaps need to classify attackers : e.g. home hacker $<<$ (semi-)professional crackers $<<$ funded organisations. also give potential problems(financial and security implications) with stolen software (IP theft etc), firmware tampering etc. Also separate microcontrollers (designed for high security or ordinary use)
 
 	\subsection{Objectives of Paper}
-	The aims of this paper are to review the possible attacks against the ATmega series of MCUs and provide possible countermeasures or possible methods of hardening a system. Section \ref{sec:atmega_overview} will provide an overview of the ATmega series of AVRs and explain the most important hardware architecture aspects, in terms of attack vectors, of the ATmega units as well as the level of protection they offer. Section \ref{sec:curr_attacks} will give a (brief) overview of the current attack techniques used to override current proctection mechanisms. 
-	\begin{itemize}
-	\item Review the ATmega series (architecture, applications and security features)\\
-	\item Review current attacks against MCUs in general \\
-	\item Review Countermeasure to these attacks or how to make them more difficult
-	\item Review attacks applicable to the ATmega (give the easiest possible attack applicable)
-	\item Describe a way to make the mega more secure
-	\item Evaluate if it's worth going the extra mile for security
-	\item Have an overview of the paper in the conclusion
-	\end{itemize}
+	The aims of this paper are to review the possible attacks against the ATmega series of MCUs and provide possible countermeasures or possible methods of hardening a system. 
 	
-	Give paper structure at some point.
+	Section \ref{sec:atmega_overview} will provide an overview of the ATmega series of AVRs and explain the most important hardware architecture aspects and protection mechanisms they offer. 
 	
-
+	Section \ref{sec:curr_attacks} will give a (brief) overview of the current attack techniques used to override currently implemented proctection mechanisms, an overview of whom is given in Section \ref{sec:defenses}. 
+	
+	In section \ref{sec:securing_mega} the current attacks will be related to the ATmega, by presenting the attack vectors in more detail as well as providing references to relevant work. Section \ref{sec:conclusion} will conclude the paper with a discussion on the usefulness of hardening the ATmega, contrasting that with using a MCU that is designed to be secure.
+	
 \section{The ATMega MCU Series}
 \label{sec:atmega_overview}
 	The ATmega series of MCUs is a popular microcontroller offering a combination of a reasonably powerful MCU at a low price. They offer a variety of clock speeds and memory capacities (with processor speeds of up to 20MHz and up to 256Kb of flash memory) and large operating voltage windows, hence making them both power efficient as well as enabling them to interact with peripherals with different operating voltages\footnote{info:\href{https://www.newbiehack.com/MicrocontrollersAlternativePowerSources.aspx}{https://www.newbiehack.com}}\footnote{info:\href{http://www.atmel.com/v2PFResults.aspx}{http://www.atmel.com/v2PFResults.aspx}}.
