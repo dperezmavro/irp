@@ -45,12 +45,12 @@
 	
 	Section \ref{sec:curr_attacks} will give a (brief) overview of the current attack techniques used to override currently implemented protection mechanisms, an overview of whom is given in Section \ref{sec:defenses}. 
 	
-	In section \ref{sec:securing_mega} the current attacks will be related to the ATmega, by presenting the attack vectors in more detail as well as providing references to relevant work. Section \ref{sec:conclusion} will conclude the paper with a discussion on the usefulness of hardening the ATmega, contrasting that with using a MCU that is designed to be secure.
+	In section \ref{sec:attacking_mega} the current attacks will be related to the ATmega, by presenting the attack vectors in more detail as well as providing references to relevant work. Section \ref{sec:conclusion} will conclude the paper with a discussion on the usefulness of hardening the ATmega, contrasting that with using a MCU that is designed to be secure.
 	
 \section{The AVR MCU Series}
 \label{sec:atmega_overview}
 
-	The Atmel AVR series is a RISC based MCU family that consists of the ATtiny, ATmega and ATxmega sub-families as well as derivatives of the above, including 32-bit AVRs and application specific FPGAs\footnote{info:\href{http://www.atmel.com/products/microcontrollers/avr/default.aspx}{AVR family link}}. The models have varying degrees of hardware capabilities and large operating voltage windows in order to accomodate demand and integrate well with peripherals\footnote{info:\href{https://www.newbiehack.com/MicrocontrollersAlternativePowerSources.aspx}{https://www.newbiehack.com}}\footnote{info:\href{http://www.atmel.com/v2PFResults.aspx}{http://www.atmel.com/v2PFResults.aspx}}.
+	The Atmel AVR series is a RISC based MCU family that consists of the ATtiny, ATmega and ATxmega sub-families as well as derivatives of the above, including 32-bit AVRs and application specific FPGAs\footnote{info:\href{http://www.atmel.com/products/microcontrollers/avr/default.aspx}{AVR family link}}. The models have varying degrees of hardware capabilities and large operating voltage windows in order to accommodate demand and integrate well with peripherals\footnote{info:\href{https://www.newbiehack.com/MicrocontrollersAlternativePowerSources.aspx}{https://www.newbiehack.com}}\footnote{info:\href{http://www.atmel.com/v2PFResults.aspx}{http://www.atmel.com/v2PFResults.aspx}}.
 	
 	Furthermore developing software for an AVR is made very easy. The AVRs benefit from the free \texttt{avr-libc} high-performance C run-time library(optimised for the AVR RISC architecture), the \texttt{avr-gcc} and \texttt{avr-gdb} compiler and debugger(both based on very popular and high quality GNU software tools), the \texttt{avrdude} programming software(or Atmel's proprietary \texttt{AVRStudio}) and \texttt{Simulavr} simulator software. Additionally, Atmel provides proprietary APIs for interacting with the AVR and the developers can choose from a wide variety of programmer units available for working with the AVRs\cite{book:practical_avr}.
 	
@@ -64,7 +64,7 @@
 	\subsubsection{Memory Organisation}
 	The 644/1284 are equipped with an EEPROM, flash memory, SRAM, a large number of general purpose registers and a large number of I/O registers (in order to be able to perform I/O) and all memory (including I/O memory mapped images) is linear, i.e. it follows the flat memory model.
 	
-	The flash memory is separated into two regions, the bootloader section and application code section. The boundary between the two sections can be configured by programming the appropriate fuses, and the page size can also be configured that way as well. Both sections hold code, however code residing in the bootloader section can execute a special instruction (\texttt{SPM}\footnote{SPM = Store Program Code}) which allows the bootloader code to write to \textit{any} section in the flash memory and hence possibly modify itself(designed for purposes such as firmware upgrades). The bootloader code can be triggered by a direct jump from the application section or by programming the reset vector via the reset fuse to point to the appropriate section of the bootloader code. 
+	The flash memory is separated into two regions, the bootloader section and application code section. The boundary between the two sections can be configured by programming the appropriate fuses, and the page size can also be configured that way as well. Both sections hold code, however code residing in the bootloader section can execute a special instruction (\texttt{SPM}\footnote{\texttt{SPM} = Store Program Code}) which allows the bootloader code to write to \textit{any} section in the flash memory and hence possibly modify itself(designed for purposes such as firmware upgrades). The bootloader code can be triggered by a direct jump from the application section or by programming the reset vector via the reset fuse to point to the appropriate section of the bootloader code. 
 	
 	The EEPROM is memory for data that needs to persist between reboots of the MCU and hence it is (widely) used to hold configuration variables and other non-temporary preferences the application code (or the bootloader) may need, having an average lifespan is 100,000 write cycles per page. 
 	
@@ -96,9 +96,9 @@
 		
 	\begin{table*}
 		\begin{tabular}{| c | p{2cm} | p{1.5cm} | p{3cm} | p{2.8cm} | c | p{1.9cm} |}
-		\textbf{Model} & \textbf{EEPROM (Kb)} & \textbf{SRAM (Kb)} & \textbf{Programmable Flash(Kb)} & \textbf{GP Registers} & \textbf{SPI Port} & \textbf{JTAG Interface}\\
-		ATmega644 & 2 & 4 & 64 & 32 & Yes & Yes\\
-		ATmega1284 & 4 & 16 & 128 & 32 & Yes & Yes \\
+		\textbf{Model} & \textbf{EEPROM (Kb)} & \textbf{SRAM (Kb)} & \textbf{Programmable Flash(Kb)} & \textbf{SPI Port} & \textbf{JTAG Interface}\\
+		ATmega644 & 2 & 4 & 64 & Yes & Yes\\
+		ATmega1284 & 4 & 16 & 128 & Yes & Yes \\
 		
 		
 		\end{tabular}
@@ -134,14 +134,21 @@ Table \ref{table:lock_bits}	 provides an outline of the available Lock bits prov
 	
 \section{Attacks on Hardware}
 \label{sec:curr_attacks}
-	\subsection{Introduction}
+A distinction between \emph{passive} and \emph{active} attacks should be made, as in the former the attacker simply monitors the chip's normal operation and tries to infer the input-output mapping whereas in the latter case the attacker actively manipulates either the chip or its operating environment with the aim of inducing faults. 
+
+Attacks on MCUs attempt to recover key material from either the Flash or the EEPROM and do not need to necessarily attack the hardware itself but can leverage flaws in algorithmic design and protocol failures or inter-component communication\citep{anderson:cautionary_note} \citep{kocher:DPA}.
+
+obtain information by corrupting the memory or exploiting memory remanence features\citep{anderson:tamper_resistance}
+
 		apparently sergei has cracked them already \cite{website:scorobogatov_breaking_copy_protection}
 	mention attacks may be passive(observing input-$>$output mapping) or active (tamper with the aforementioned mapping in some useful way)
 	\subsection{Non-Invasive Attacks}
+	SPA-DPA
 	\subsection{Semi-Invasive Attacks}
+	some sort of fault injection?
 		all memory types are linear( as well as memory mapped IO) - related to memory scanning attacks by glitching and power faults (stop making call or jump instructions)
 	\subsection{Invasive Attacks}
-
+	Microprobing
 	overview of attack categories [each one to the category that it corresponds above]
 	\begin{itemize}
 		\item microprobing \\
@@ -165,20 +172,23 @@ Table \ref{table:lock_bits}	 provides an outline of the available Lock bits prov
 	
 	
 
-\section{Securing the mega}
-\label{sec:securing_mega}
-	\subsection{Working attacks against the ATmega}
+\section{Attacking The ATmega}
+\label{sec:attacking_mega}
 	\subsection{Motivation}
-	\subsection{Current Attack Vectors}
-	\subsection{Protective Steps}
+	
+	\subsection{Attack Overview}
 		* feasible? 
 		* added cost (in terms of \$\$, extra hardware and software implementation penalties/overhead)
 	
 
 \section{Evaluation}
-No system is unbreakable and the only hope is to make it as hard to break as possible, said by \citep{tech:aes_bls},\cite{website:scorobogatov_breaking_copy_protection}
 \label{sec:conclusion}
+
+No system is unbreakable and one can only harden their system enough to make the effort of breaking it unbearable to those they wish to protect against\citep{anderson:cautionary_note}\cite{website:scorobogatov_breaking_copy_protection}. AES bootloader\citep{tech:aes_bls},
+
 	not sure if the subsections are needed here
+	\subsection{Securing the mega}
+		paragraph talking about why it's not a good idea to salvage the mega.
 	\subsection{Attacks and Solutions overview}
 	\subsection{Conclusions}
 	
