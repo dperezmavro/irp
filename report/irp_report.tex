@@ -3,6 +3,7 @@
 \usepackage[top=0.6in]{geometry}
 
 %for links
+%\usepackage[hidelinks]{hyperref}
 \usepackage{hyperref}
 
 %for bilbiography
@@ -31,9 +32,9 @@
 	
 	A distinction between ordinary and secure microcontrollers should be made\citep{website:scorobogatov_breaking_copy_protection} and, due to the sophistication in the protective mechanisms and the attack vectors, a broad classification of attackers as\cite{anderson:cautionary_note}:
 		\begin{itemize}
-			\item \textbf{Home Hackers} People who are curious about the inner workings of a device and a very limited budget, perhaps with limited knowledge and no malicious intent, but with no time-limit.\\
-			\item \textbf{Semi-Professional Crackers} Professionals skilled on electronics, usually with access to specialised equipment and resources. Their funding might be limited, malicious intent is unclear and they might be constrained in the time they have available.\\
-			\item \textbf{Funded Organisations} People or organisations with access to the same equipment as the MCU manufacturer. Their funding is usually unconstrained, there usually exists malicious intent and their time schedule is usually tight.
+			\item \textbf{Home Hackers} Clever and curious people with a very limited budget, perhaps with some degree of knowledge and no malicious intent, but with no time-limit.\\
+			\item \textbf{Semi-Professional Crackers} Professionals skilled on electronics with access to specialised equipment and resources. Their funding might be limited, malicious intent is unclear and they might be constrained in their time allowance.\\
+			\item \textbf{Funded Organisations} Organisations with access to MCU manufacturing equipment. Their funding is usually unconstrained, there usually exists malicious intent and their time schedule is usually tight.
 		\end{itemize}
 	
 	Firmware tampering or theft has a number of consequences. The most obvious consequence is an attacker downloading the code from a MCU and flashing it onto a MCU that they sell, effectively avoiding development and testing costs but still offering the same product as other manufacturers(\cite{tech:aes_bls}). A less obvious, but perhaps more important, case is the case of back-dooring\footnote{The act of adding code to a system without the user's knowledge or approval, usually to accomplish nefarious tasks.} a MCU by re-flashing on it a modified version of the firmware with coded added by the attacker in order to accomplish their malicious intents, which could have disastrous consequences if these MCUs were used for military or other sensitive operations. 
@@ -50,16 +51,16 @@
 \section{The AVR MCU Series}
 \label{sec:atmega_overview}
 
-	The Atmel AVR series is a RISC based MCU family that consists of the ATtiny, ATmega and ATxmega sub-families as well as derivatives of the above, including 32-bit AVRs and application specific FPGAs\footnote{info:\href{http://www.atmel.com/products/microcontrollers/avr/default.aspx}{AVR family link}}. The models have varying degrees of hardware capabilities and large operating voltage windows in order to accommodate demand and integrate well with peripherals\footnote{info:\href{https://www.newbiehack.com/MicrocontrollersAlternativePowerSources.aspx}{https://www.newbiehack.com}}\footnote{info:\href{http://www.atmel.com/v2PFResults.aspx}{http://www.atmel.com/v2PFResults.aspx}}.
+	The Atmel AVR series is an enhanced-RISC MCU family that consists of the ATtiny, ATmega and ATxmega sub-categories and derivatives of the above, including 32-bit AVRs and application specific FPGAs\footnote{info:\href{http://www.atmel.com/products/microcontrollers/avr/default.aspx}{AVR family link}}. The models have varying degrees of hardware capabilities and large operating voltage windows in order to accommodate demand and integrate well with peripherals\footnote{info:\href{https://www.newbiehack.com/MicrocontrollersAlternativePowerSources.aspx}{https://www.newbiehack.com}}\footnote{info:\href{http://www.atmel.com/v2PFResults.aspx}{http://www.atmel.com/v2PFResults.aspx}}.
 	
-	Furthermore developing software for an AVR is made very easy. The AVRs benefit from the free \texttt{avr-libc} high-performance C run-time library(optimised for the AVR RISC architecture), the \texttt{avr-gcc} and \texttt{avr-gdb} compiler and debugger(both based on very popular and high quality GNU software tools), the \texttt{avrdude} programming software(or Atmel's proprietary \texttt{AVRStudio}) and \texttt{Simulavr} simulator software. Additionally, Atmel provides proprietary APIs for interacting with the AVR and the developers can choose from a wide variety of programmer units available for working with the AVRs\cite{book:practical_avr}.
+	Developing software for an AVR is easy as the AVRs benefit from the free \texttt{avr-libc} high-performance C run-time library(optimised for the AVR RISC architecture), the \texttt{avr-gcc} and \texttt{avr-gdb} compiler and debugger(both based on very popular and high quality GNU software tools), the \texttt{avrdude} programming software(or Atmel's proprietary \texttt{AVRStudio}) and \texttt{Simulavr} simulator software. Additionally, Atmel provides proprietary APIs for interacting with the AVR and the developers can choose from a wide variety of programmer units available for working with the AVRs\cite{book:practical_avr}.
 	
 	\subsection{ATMega Architecture and Features}				
 
 	\subsubsection{Important Feature Overview}
-	The ATmega series of MCUs is a relatively large family of microntroller units, with the focus of this paper being on the ATmega644 and ATmega1284. The only differences between then 1284 and the 644 is that the 1284 has got more memory available and an hardware extra timer. A summary of (some) of the features of the two units is give in Table \ref{table:avr_specs}\citep{atmega_manual}. 
+	The ATmega series of MCUs is a relatively large family of MCUs and the focus of this paper is on the ATmega644 and ATmega1284. The only differences between then 1284 and the 644 is that the 1284 has got more memory available and an hardware extra timer. A summary of (some) of the features of the two units is give in Table \ref{table:avr_specs}\citep{atmega_manual}. 
 	
-	Both MCUs are an enhanced RISC Harvard architecture 8-bit CPU. Figure \ref{fig:architectures} shows the conceptual difference between a Von Neuman (most modern PCs) and a Harvard architecture, where the key distinction lies in the separation of application code and program data into different memory sections (Harvard) and tasking the CPU with distinguishing between code and data that lives in the same memory region (Von Neuman). The 644/1284 implement a Harvard architecture for both power and computational efficiency, being designed to access more than one registers simultaneously (due to the physical wiring of the CPU), enabling them to execute an instruction per cycle. Their operating voltages can vary between 1.8V and 5.5V (maximum operating frequency 20 MHz).
+	Both MCUs are an enhanced-RISC Harvard architecture 8-bit CPU. Figure \ref{fig:architectures} shows the conceptual difference between a Von Neuman (most modern PCs) and a Harvard architecture, where the key distinction lies in the separation of application code and program data into different memory sections (Harvard) and tasking the CPU with distinguishing between code and data that lives in the same memory region (Von Neuman). The 644/1284 implement a Harvard architecture for both power and computational efficiency, being designed to access more than one registers simultaneously (due to the physical wiring of the CPU), enabling them to execute an instruction per cycle. Their operating voltages can vary between 1.8V and 5.5V (maximum operating frequency 20 MHz).
 	
 	\subsubsection{Memory Organisation}
 	The 644/1284 are equipped with an EEPROM, flash memory, SRAM, a large number of general purpose registers and a large number of I/O registers (in order to be able to perform I/O) and all memory (including I/O memory mapped images) is linear, i.e. it follows the flat memory model.
@@ -108,7 +109,7 @@
 	
 	\subsection{ATMega Security Features}
 	
-	The AVR ATmega644/1284, even though they are not meant to be trusted or secure hardware, posses certain security features. In particular, each board provides six Lock bits (which can be programmed or unprogrammed) and which are responsible for controlling or preventing different memory portions of the board to be modified or read by the other parts (e.g. prevent code executing from the bootloader section to read/write the application code section via the \texttt{SPM} instruction). The prevention however is not permanent, as that would limit the usefulness of the MCU and therefore one has the option to bring these lock bits back to State 1 (i.e. unprogrammed, having no protection scheme enabled) by issuing a Chip Erase command, which has the effect of completely erasing the Flash, EEPROM and Lock bits.
+	The AVR ATmega644/1284, even though not meant to be secure hardware modules, posses certain security features. In particular, each board provides six Lock bits (which can be programmed or unprogrammed) and which are responsible for controlling or preventing different memory portions of the board to be modified or read by the other parts (e.g. prevent code executing from the bootloader section to read/write the application code section via the \texttt{SPM} instruction). The prevention however is not permanent, as that would limit the usefulness of the MCU and therefore one has the option to bring these lock bits back to State 1 (i.e. unprogrammed, having no protection scheme enabled) by issuing a Chip Erase command, which has the effect of completely erasing the Flash, EEPROM and Lock bits.
 	
 	The erasing is performed with the sequence of events presented above and this is important, as one does not want to remove the access protection before removing all sensitive data and hence the Lock bits are set to 1 only after the whole program memory has been erased. Even though the flash memory has an average lifespan of 10,000 write cycles (as well as programming being relatively expensive as an operation) this approach makes sense as the ultimate goal is to preserve the intellectual property on the board rather than the board itself.
 	
@@ -134,9 +135,9 @@ Table \ref{table:lock_bits}	 provides an outline of the available Lock bits prov
 	
 \section{Attacks on Hardware}
 \label{sec:curr_attacks}
-A distinction between \emph{passive} and \emph{active} attacks should be made, as in the former the attacker simply monitors the chip's normal operation and tries to infer the input-output mapping whereas in the latter case the attacker actively manipulates either the chip or its operating environment with the aim of inducing faults. 
+A distinction between \emph{passive} and \emph{active} attacks should be made. In the former the attacker simply monitors the chip's normal operation and tries to infer the input-output mapping whereas in the latter case the attacker actively manipulates either the chip or its operating environment with the aim of obtaining insight on the chips inner workings. 
 
-Attacks on MCUs attempt to recover key material from either the Flash or the EEPROM and do not need to necessarily attack the hardware itself but can leverage flaws in algorithmic design and protocol failures or inter-component communication\citep{anderson:cautionary_note} \citep{kocher:DPA}.
+Attacks on MCUs attempt to recover key material from either the flash or the EEPROM and do not need to necessarily attack the hardware itself but can leverage flaws in algorithmic design and protocol failures or inter-component communication\citep{anderson:cautionary_note}\citep{kocher:DPA}.
 
 obtain information by corrupting the memory or exploiting memory remanence features\citep{anderson:tamper_resistance}
 
@@ -174,6 +175,9 @@ obtain information by corrupting the memory or exploiting memory remanence featu
 
 \section{Attacking The ATmega}
 \label{sec:attacking_mega}
+
+The ATmega is a typical MCU that is suseptible to a successful attack by the \textbf{Home-Hacker} class of attackers due to its weak protective mechanisms. While there is a way to deliver firmware updates to the MCU securely(\citep{tech:aes_bls}), it will be demonstrated that keeping the firmware secure on the device is impossible.
+
 	\subsection{Motivation}
 	
 	\subsection{Attack Overview}
