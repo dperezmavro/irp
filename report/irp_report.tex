@@ -4,7 +4,7 @@
 
 %for links
 %\usepackage[hidelinks]{hyperref}
-\usepackage[•]{•}{hyperref}
+\usepackage{hyperref}
 
 %for bilbiography
 \usepackage{natbib}
@@ -96,10 +96,10 @@
 \end{figure*}	
 		
 	\begin{table*}
-		\begin{tabular}{| c | p{2cm} | p{1.5cm} | p{3cm} | p{2.8cm} | c | p{1.9cm} |}
-		\textbf{Model} & \textbf{EEPROM (Kb)} & \textbf{SRAM (Kb)} & \textbf{Programmable Flash(Kb)} & \textbf{SPI Port} & \textbf{JTAG Interface}\\
-		ATmega644 & 2 & 4 & 64 & Yes & Yes\\
-		ATmega1284 & 4 & 16 & 128 & Yes & Yes \\
+		\begin{tabular}{| c | p{2cm} | p{1.5cm} | p{1.5cm} | p{2.8cm} | p{1.9cm} |}
+		\textbf{Model} & \textbf{EEPROM (Kb)} & \textbf{SRAM (Kb)} & \textbf{Flash (Kb)} & \textbf{JTAG Interface}\\
+		ATmega644 & 2 & 4 & 64 & Yes\\
+		ATmega1284 & 4 & 16 & 128 & Yes \\
 		
 		
 		\end{tabular}
@@ -113,23 +113,23 @@
 	
 	The erasing is performed with the sequence of events presented above and this is important, as one does not want to remove the access protection before removing all sensitive data and hence the Lock bits are set to 1 only after the whole program memory has been erased. Even though the flash memory has an average lifespan of 10,000 write cycles (as well as programming being relatively expensive as an operation) this approach makes sense as the ultimate goal is to preserve the intellectual property on the board rather than the board itself.
 	
-	\begin{table*}
+	\begin{table}
 		\center
 		\begin{tabular}{| c | c | c | c |}
 			\hline
-			\textbf{Lock Bit Byte} & \textbf{Bit Number} & \textbf{Description} & \textbf{Default Value}\\
+			\textbf{Lock Bit Byte} & \textbf{Bit Number} & \textbf{Default}\\
 			\hline \hline
-			BLB12 & 5 & Boot Lock Bit & 1\\
-			BLB11 & 4 & Boot Lock Bit & 1\\
-			BLB02 & 3 & Boot Lock Bit & 1\\
-			BLB01 & 2 & Boot Lock Bit & 1\\
-			LB2 & 2 & Lock Bit & 1 \\
-			LB1 & 1 & Lock Bit & 1 \\
+			BLB12 & 5 & 1\\
+			BLB11 & 4 & 1\\
+			BLB02 & 3 & 1\\
+			BLB01 & 2 & 1\\
+			LB2 & 2 & 1 \\
+			LB1 & 1 & 1 \\
 			\hline
 		\end{tabular}
-		\caption{Security lock bits offered by the ATmega644 and ATmega1284.}
+		\caption{Security lock bits offered by the ATmega644 and ATmega1284. BLB stands for Boot Lock Bit and LB for Lock Bit.}
 		\label{table:lock_bits}
-	\end{table*}
+	\end{table}
 	
 Table \ref{table:lock_bits}	 provides an outline of the available Lock bits provided by the ATmega series. The functionality of the BLB1 group is to control access and modification of the bootloader section, group BLB0 bits control access to the application code section and group LB bits are responsible for controlling modifications on the EEPROM and Flash.A detailed explanation of their functionality and how to use them is given in \citep{atmega_manual}.
 	
@@ -142,13 +142,14 @@ Attacks on MCUs attempt to recover key material from either the flash or the EEP
 obtain information by corrupting the memory or exploiting memory remanence features\citep{anderson:tamper_resistance}
 
 		apparently sergei has cracked them already \cite{website:scorobogatov_breaking_copy_protection}
-	mention attacks may be passive(observing input-$>$output mapping) or active (tamper with the aforementioned mapping in some useful way)
+		
 	\subsection{Non-Invasive Attacks}
 	SPA-DPA
 	\subsection{Semi-Invasive Attacks}
 	some sort of fault injection?
 		all memory types are linear( as well as memory mapped IO) - related to memory scanning attacks by glitching and power faults (stop making call or jump instructions)
 	\subsection{Invasive Attacks}
+	mention decaping and chip exposure. can be done by sending to hardware failure test labs[reference] or by chemicals etc \citep{anderson:cautionary_note}
 	Microprobing
 	overview of attack categories [each one to the category that it corresponds above]
 	\begin{itemize}
@@ -163,13 +164,16 @@ obtain information by corrupting the memory or exploiting memory remanence featu
 
 \section{Countermeasures to known attacks}
 \label{sec:defenses}
+
+Planarization defeats optical inspection with microscope (source: Introduction to hardware security and trust, sergei skorobogatov paper).\\
+Usual defence : have crypto keys in module IN processor with its own power, wound in wire and in epoxy- uppon tampering detection, power would be cut and the keys would be deleted. Systems used to detect transients(both voltage and current) as well as frequency changes and cause a reset upon abnormality detection, cutting the power and deleting the keys from the memory, but that was unstable \citep{anderson:cautionary_note}.
 	\begin{itemize}
 	\item overview of most popular techniques \\
 	\item benefits and how they improve the situation/approach the problem
 	\item added cost for this investment (in terms of hardware and money, transparency to the developers, runtime overhead etc)\\
 	\end{itemize}
 	
-	perhaps review some popular secure chips ??	
+	perhaps review some popular secure chips ?? IBM 4758 is a secure device \footnote{\href{http://www.cl.cam.ac.uk/~rnc1/descrack/ibm4758.html}{http://www.cl.cam.ac.uk/~rnc1/descrack/ibm4758.html}}, some Dallas chips and perhaps more.
 	
 	
 
@@ -177,6 +181,8 @@ obtain information by corrupting the memory or exploiting memory remanence featu
 \label{sec:attacking_mega}
 
 The ATmega is a typical MCU that is susceptible to a successful attack by the \textbf{Home-Hacker} class of attackers due to its weak protective mechanisms. While there is a way to deliver firmware updates to the MCU securely(\citep{tech:aes_bls}), it will be demonstrated that keeping the firmware secure on the device is impossible.
+
+The motivation behind attacking the ATmega 688/1284 is their popularity and to prove how easy it is
 
 	\subsection{Motivation}
 	
@@ -188,7 +194,7 @@ The ATmega is a typical MCU that is susceptible to a successful attack by the \t
 \section{Evaluation}
 \label{sec:conclusion}
 
-No system is unbreakable and one can only harden their system enough to make the effort of breaking it unbearable to those they wish to protect against\citep{anderson:cautionary_note}\cite{website:scorobogatov_breaking_copy_protection}. AES bootloader\citep{tech:aes_bls},
+No system is unbreakable and one can only harden their system enough to make the effort of breaking it unbearable to those they wish to protect against\citep{anderson:cautionary_note}\cite{website:scorobogatov_breaking_copy_protection}.
 
 	not sure if the subsections are needed here
 	\subsection{Securing the mega}
