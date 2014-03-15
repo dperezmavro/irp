@@ -1,6 +1,6 @@
-\documentclass[12pt,a4paper,twocolumn]{article}
+\documentclass[10pt,a4paper,twocolumn]{article}
 
-\usepackage[top=0.8in,bottom=0.8in,right=0.8in,left=0.8in]{geometry}
+\usepackage{geometry}
 
 %for links
 \usepackage{hyperref}
@@ -21,7 +21,7 @@
 	\maketitle
 	
 \section*{\emph{Abstract}}
-	\textbf{\emph{The most abstract abstract of all abstracts, full of abstractions.}}
+	\textbf{\emph{The most abstract abstract of some abstracts, full of abstractions.}}
 	
 
 \section{Introduction}
@@ -29,14 +29,14 @@
 	
 	Tampering (or theft) detection and prevention of the firmware of a MCU is a popular problem with active research, as solving it would benefit a lot of parties (including the government and the military), as MCUs are used in areas spanning from consumer electronics to missile guiding systems.
 	
-	Due to the sophistication and diversity in both the protective mechanisms and the attack vectors (including the funding and skill-set required by the attackers), it would be useful to classify the attackers in three broad categories [provide reference], namely :
+	A distinction between ordinary and secure microcontrollers should be made\citep{website:scorobogatov_breaking_copy_protection} and, due to the sophistication in the protective mechanisms and the attack vectors, a broad classification of attackers as\cite{anderson:cautionary_note}:
 		\begin{itemize}
-			\item \textbf{Home Hackers} People who are curious about the inner workings of a device and a very limited budget, perhaps with limited knowledge and no malicious intent.\\
-			\item \textbf{Semi-Professional Crackers} Professionals skilled on electronics, usually with access to specialised equipment and resources. Their funding might be limited, and malicious intent is unclear.\\
-			\item \textbf{Funded Organisations} People or organisations with access to the same equipment as the MCU manufacturer. Their funding is usually unconstrained and usually there exists malicious intent.
+			\item \textbf{Home Hackers} People who are curious about the inner workings of a device and a very limited budget, perhaps with limited knowledge and no malicious intent, but with no time-limit.\\
+			\item \textbf{Semi-Professional Crackers} Professionals skilled on electronics, usually with access to specialised equipment and resources. Their funding might be limited, malicious intent is unclear and they might be constrained in the time they have available.\\
+			\item \textbf{Funded Organisations} People or organisations with access to the same equipment as the MCU manufacturer. Their funding is usually unconstrained, there usually exists malicious intent and their time schedule is usually tight.
 		\end{itemize}
 	
-	Firmware tampering or theft has a number of consequences. The most obvious consequence is an attacker downloading the code from a MCU and flashing it onto a MCU that they sell, effectively avoiding development and testing costs but still offering the same product as other manufacturers. A less obvious, but perhaps more important, case is the case of back-dooring\footnote{The act of adding code to a system without the user's knowledge or approval, usually to accomplish nefarious tasks.} a MCU by re-flashing on it a modified version of the firmware with coded added by the attacker in order to accomplish their malicious intents, which could have disastrous consequences if these MCUs were used for military or other sensitive operations. 
+	Firmware tampering or theft has a number of consequences. The most obvious consequence is an attacker downloading the code from a MCU and flashing it onto a MCU that they sell, effectively avoiding development and testing costs but still offering the same product as other manufacturers(\cite{tech:aes_bls}). A less obvious, but perhaps more important, case is the case of back-dooring\footnote{The act of adding code to a system without the user's knowledge or approval, usually to accomplish nefarious tasks.} a MCU by re-flashing on it a modified version of the firmware with coded added by the attacker in order to accomplish their malicious intents, which could have disastrous consequences if these MCUs were used for military or other sensitive operations. 
 
 	\subsection{Objectives}
 	The aims of this paper are to review the possible attacks against the ATmega series of MCUs and provide possible countermeasures or possible methods of hardening a system. 
@@ -49,25 +49,17 @@
 	
 \section{The ATMega MCU Series}
 \label{sec:atmega_overview}
-	The ATmega series of MCUs is a popular microcontroller offering a combination of a reasonably powerful MCU at a low price. They offer a variety of clock speeds and memory capacities (with processor speeds of up to 20MHz and up to 256Kb of flash memory) and large operating voltage windows, hence making them both power efficient as well as enabling them to interact with peripherals with different operating voltages\footnote{info:\href{https://www.newbiehack.com/MicrocontrollersAlternativePowerSources.aspx}{https://www.newbiehack.com}}\footnote{info:\href{http://www.atmel.com/v2PFResults.aspx}{http://www.atmel.com/v2PFResults.aspx}}.
+	The ATmega series of MCUs is a popular microcontroller offering a combination of a reasonably powerful MCU at a low price. They offer a variety of clock speeds and memory capacities and large operating voltage windows, hence making them both power efficient as well as enabling them to interact with peripherals with different operating voltages\footnote{info:\href{https://www.newbiehack.com/MicrocontrollersAlternativePowerSources.aspx}{https://www.newbiehack.com}}\footnote{info:\href{http://www.atmel.com/v2PFResults.aspx}{http://www.atmel.com/v2PFResults.aspx}}.
 	
 	Furthermore, developing software for an AVR board is very easy, a further incentive to use an AVR over other popular options. In particular, the AVR MCUs benefit from the free \texttt{avr-libc} high-performance C run-time library(optimised for the AVR RISC architecture), the \texttt{avr-gcc} and \texttt{avr-gdb} compiler and debugger(both based on very popular and high quality GNU software tools), the \texttt{avrdude} programming software(or Atmel's proprietary \texttt{AVRStudio}) and \texttt{Simulavr} simulator software. In addition to these community tools, Atmel provides proprietary APIs for interacting with the AVR and the developers can choose from a wide variety of programmer units available for working with the AVR MCUs\cite{book:practical_avr}.
 	
 	\subsection{Atmel AVR Series}
-	Atmel released the AVR series on the market in 1996(\cite{book:practical_avr}) and has since been delivering MCUs that are based around the RISC philosophy and have varied capabilities so that developers can find exactly what fits their needs. The AVR family constitutes of the following series:
-	
-	\begin{itemize}
-		\item ATtiny \\
-		\item ATmega \\
-		\item ATxmega \\
-	\end{itemize}
-	
-as well as derivatives of the above, including 32-bit AVRs and application specific FPGAs\footnote{info:\href{http://www.atmel.com/products/microcontrollers/avr/default.aspx}{AVR family link}}.
+	The Atmel AVR series is a RISC based MCU family that consists of the ATtiny, ATmega and ATxmega sub-families as well as derivatives of the above, including 32-bit AVRs and application specific FPGAs\footnote{info:\href{http://www.atmel.com/products/microcontrollers/avr/default.aspx}{AVR family link}}.
 
 	\subsection{ATMega Architecture and Features}				
 
 	\subsubsection{Background and Features}
-	The ATmega series of MCUs is a relatively large family of microntroller units. However this paper focuses only on the ATmega644 and ATmega1284, [reasons for focus here]. The only difference between then 1284 and the 644 is that the 1284 has got more memory available and a summary of (some) of the features of the two units is give in Table \ref{table:avr_specs}[\citep{atmega644_manual},\citep{atmega1284_manual}]. 
+	The ATmega series of MCUs is a relatively large family of microntroller units, with the focus of this paper being on the ATmega644 and ATmega1284. The only differences between then 1284 and the 644 is that the 1284 has got more memory available and an extra timer. A summary of (some) of the features of the two units is give in Table \ref{table:avr_specs}\citep{atmega_manual}. 
 	
 	Both MCUs are an enhanced RISC Harvard architecture 8-bit CPU. Figure \ref{fig:architectures} shows the conceptual difference between a Von Neuman (most modern PCs) and a Harvard architecture, where the key distinction lies in the separation of application code and program data into different memory sections (Harvard) and tasking the CPU with distinguishing between code and data that lives in the same memory region (Von Neuman). The 644/1284 implement a Harvard architecture for both power and computational efficiency, as they are able to access more than one registers simultaneously (due to the physical wiring of the CPU) and hence are able to execute an instruction per cycle as once an instruction is executing the next one is pre-fetched and decoded. Their operating voltages can vary between 1.8V and 5.5V (maximum operating frequency 20 MHz).
 	
@@ -81,29 +73,28 @@ as well as derivatives of the above, including 32-bit AVRs and application speci
 	The SRAM is volatile storage and is used as the stack and heap for the software (either application code or bootloader code) as well as for storing the Register File (i.e. the 32 GP registers) I/O and Extended I/O Memory. The reserved register locations exist in order to support the use of peripheral units as well as hold program status information (e.g. the Stack Pointer can be found in one of the GP registers).Figure \ref{fig:stack} gives an overview of the SRAM hierarchy, which is slightly different (in terms of region sizes) for the 644 and the 1284 as the 1284 offers more SRAM.
 	
 	\begin{figure}
-		% source : atmel's manuals 
-		\includegraphics[scale=1]{img/stack.png}
-		\caption{SRAM layout for the ATmega 644 and 1284.}
+		\includegraphics[scale=0.7]{img/stack.png}
+		\caption{SRAM layout for the ATmega 644 and 1284. \textbf{Source}:\protect\citep{atmega_manual}.}
 		\label{fig:stack}		
 	\end{figure}
 	
-\begin{figure}
-	\begin{subfigure}[b]{0.3\textwidth}
-		% source http://www.elec.canterbury.ac.nz/PublicArea/Staff/hof/p10-embed/p10-tutorial/p12.html
-		\includegraphics[scale=0.65]{img/von_neuman_arch.jpg}
+\begin{figure*}
+	\begin{subfigure}{0.5\textwidth}
+		\center
+		\includegraphics[scale=0.5]{img/von_neuman_arch.jpg}
 		\caption{Schematic of a Von Neuman architecture.}
 		\label{fig:VN_arch}
-	\end{subfigure} \\
-	
-	\begin{subfigure}[b]{0.3\textwidth}
-		% source : http://www.elec.canterbury.ac.nz/PublicArea/Staff/hof/p10-embed/p10-tutorial/p13.html
+	\end{subfigure} 
+	~
+	\begin{subfigure}{0.5\textwidth}
+		\center
 		\includegraphics[scale=0.5]{img/harvard_arch.jpeg}
 		\caption{Schematic of a Harvard architecture.}
 		\label{fig:H_arch}
 	\end{subfigure}
-	\caption{A comparison of different machine architectures.}
+	\caption{A comparison of different machine architectures. \textbf{Source}:\protect\citep{website:mcu_primer}.}
 	\label{fig:architectures}
-\end{figure}	
+\end{figure*}	
 		
 	\begin{table*}
 		\begin{tabular}{| c | p{2cm} | p{1.5cm} | p{3cm} | p{2.8cm} | c | p{1.9cm} |}
@@ -113,7 +104,7 @@ as well as derivatives of the above, including 32-bit AVRs and application speci
 		
 		
 		\end{tabular}
-	\caption{Specification overview for the AVR ATmega644 and ATmega<>}
+	\caption{Specification overview for the AVR ATmega644 and ATmega1284}
 	\label{table:avr_specs}
 	\end{table*}
 	
@@ -141,7 +132,7 @@ as well as derivatives of the above, including 32-bit AVRs and application speci
 		\label{table:lock_bits}
 	\end{table*}
 	
-Table \ref{table:lock_bits}	 provides an outline of the available Lock bits provided by the ATmega series. The functionality of the BLB1 group is to control access and modification of the bootloader section, group BLB0 bits control access to the application code section and group LB bits are responsible for controlling modifications on the EEPROM and Flash.A detailed explanation of their functionality and how to use them is given in \citep{atmega1284_manual} and \citep{atmega644_manual}.
+Table \ref{table:lock_bits}	 provides an outline of the available Lock bits provided by the ATmega series. The functionality of the BLB1 group is to control access and modification of the bootloader section, group BLB0 bits control access to the application code section and group LB bits are responsible for controlling modifications on the EEPROM and Flash.A detailed explanation of their functionality and how to use them is given in \citep{atmega_manual}.
 	
 \section{Attacks on Hardware}
 \label{sec:curr_attacks}
@@ -187,13 +178,12 @@ Table \ref{table:lock_bits}	 provides an outline of the available Lock bits prov
 	
 
 \section{Evaluation}
+No system is unbreakable and the only hope is to make it as hard to break as possible, said by \citep{tech:aes_bls},\cite{website:scorobogatov_breaking_copy_protection}
 \label{sec:conclusion}
 	not sure if the subsections are needed here
 	\subsection{Attacks and Solutions overview}
 	\subsection{Conclusions}
 	
-	\pagebreak
-	\onecolumn
 	\bibliographystyle{plain}
 	\bibliography{irp_report}	
 	

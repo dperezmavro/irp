@@ -1,32 +1,29 @@
 @misc{website:scorobogatov_breaking_copy_protection,
-	author="Dr. Sergei Skorobogatov",
-	title="Breaking Copy Protection in Microcontrollers",
-	year="2000",
-	url="http://www.cl.cam.ac.uk/~sps32/mcu\_lock.html",
+	author="Sergei Skorobogatov",
+	title={{Breaking Copy Protection in Microcontrollers}},
+	year=2000,
+	url={http://www.cl.cam.ac.uk/~sps32/mcu\_lock.html},
+	howpublished = {\url{http://www.cl.cam.ac.uk/~sps32/mcu\_lock.html}},
 }
 
-@manual{atmega644_manual,
-	url="http://www.atmel.com/Images/doc2593.pdf",
-	author="AtmelCorporation",
-	title="Atmel ATmega644 data sheet",
-	organisations="Atmel Corporation",
-	year="2012",
-}
-	
-@manual{atmega1284_manual,
-	url="http://www.atmel.com/Images/Atmel-8272-8-bit-AVR-microcontroller-ATmega164A_PA-324A_PA-644A_PA-1284_P_datasheet.pdf",
-	author="AtmelCorporation",
-	title="Atmel ATmega1284 data sheet",
-	organisations="Atmel Corporation",
-	year="2013",
+@TECHREPORT{atmega_manual,
+  author =       {Atmel Corporation},
+  title =        {{ATmega{164PA/324PA/644PA/1284P} Datasheet}},
+  year =         2013,
+  institution = {{Atmel Corporation}},
+  type =         {{Datasheet}},
+  number =       {8272E-AVR-04/2013},
+  note = {\url{https://secure.ecs.soton.ac.uk/notes/comp2215/rscs/ATmega1284P-datasheet_8272E-04-2013.pdf}},
+  howpublished = {\url{https://secure.ecs.soton.ac.uk/notes/comp2215/rscs/ATmega1284P-datasheet_8272E-04-2013.pdf}},
+  url =          {http://www.atmel.com/Images/doc8152.pdf},
 }
 
 @conference{bh:power_analysis_for_cheapskates,
 	author    = "Colin O'Flynn",
-    title     = "Power Analysis For Cheapskates",
-    booktitle = "BlackHat USA 2013",
+    title     = {{Power Analysis For Cheapskates}},
+    booktitle = {{BlackHat USA 2013}},
     url="http://www.newae.com/files/OFLYNN_WhitePaper.pdf",
-    year      = "2013",
+    year      = 2013,
 }
 
 @inproceedings{kocher:DPA,
@@ -44,9 +41,60 @@
 }
 
 @book{book:practical_avr,
-  Author = {Alan Trevennor},
-  Title = {Practical AVR Microcontrollers: Games, Gadgets, and Home Automation with the Microcontroller Used in the Arduino (Technology in Action)},
-  Publisher = {Apress},
-  Year = {2012},
+  author = {Alan Trevennor},
+  title = {{Practical AVR Microcontrollers: Games, Gadgets, and Home Automation with the Microcontroller Used in the Arduino (Technology in Action)}},
+  publisher = {Apress},
+  year = {2012},
   ISBN = {1430244461},
 }
+
+@misc{website:mcu_primer,
+	author="Philipp Hof",
+	title={{A Primer To Microcontrollers}},
+	year=2010,
+	url={http://www.elec.canterbury.ac.nz/PublicArea/Staff/hof/p10-embed/p10-tutorial/index.html},
+	howpublished = {\url{http://www.elec.canterbury.ac.nz/PublicArea/Staff/hof/p10-embed/p10-tutorial/index.html}},
+}
+
+
+
+@TECHREPORT{tech:aes_bls,
+  author =       {Atmel Corporation},
+  title =        {{Atmel AVR231: AES Bootloader}},
+  year =         2012,
+  institution = {{Atmel Corporation}},
+  type =         {{Application Note}},
+  number =       {2589E-AVR-03/12},
+  note = {\url{www.atmel.com/Images/doc2589.pd}},
+  howpublished = {\url{www.atmel.com/Images/doc2589.pd}},
+  url =          {www.atmel.com/Images/doc2589.pd},
+}
+
+@INCOLLECTION{anderson:tamper_resistance,
+	year={1998},
+	isbn={978-3-540-64040-0},
+	booktitle={Security Protocols},
+	volume={1361},
+	series={Lecture Notes in Computer Science},
+	editor={Christianson, Bruce and Crispo, Bruno and Lomas, Mark and Roe, Michael},
+	doi={10.1007/BFb0028165},
+	title={Low cost attacks on tamper resistant devices},
+	url={\url{http://dx.doi.org/10.1007/BFb0028165}},
+	publisher={Springer Berlin Heidelberg},
+	author={Anderson, Ross and Kuhn, Markus},
+}
+
+@INPROCEEDINGS{anderson:cautionary_note,
+	author = {Anderson, Ross and Kuhn, Markus},
+	title = {Tamper Resistance: A Cautionary Note},
+	booktitle = {Proceedings of the 2Nd Conference on Proceedings of the Second USENIX 	Workshop on Electronic Commerce - Volume 2},
+	series = {WOEC'96},
+	year = {1996},
+	location = {Oakland, California},
+	url = {\url{http://dl.acm.org/citation.cfm?id=1267167.1267168}},
+	acmid = {1267168},
+	pubisher = {USENIX Association},
+	address = {Berkeley, CA, USA},
+} 
+
+% http://www.bunniestudios.com/blog/?page_id=40 : hacking the PIC 
