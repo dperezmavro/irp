@@ -162,7 +162,7 @@ Attacks on MCUs may attempt to recover a number of artefacts, including cryptogr
 	some sort of fault injection?
 		all memory types are linear( as well as memory mapped IO) - related to memory scanning attacks by glitching and power faults (stop making call or jump instructions)
 	\subsection{Invasive Attacks}
-	mention decaping and chip exposure. can be done by sending to hardware failure test labs[reference] or by chemicals etc \citep{anderson:cautionary_note}
+	mention decaping and chip exposure. can be done by sending to hardware failure test labs\citep{website:hacking_the_pic} or by chemicals etc \citep{anderson:cautionary_note}
 	Microprobing
 	overview of attack categories [each one to the category that it corresponds above]
 	\begin{itemize}
@@ -175,45 +175,9 @@ Attacks on MCUs may attempt to recover a number of artefacts, including cryptogr
 	
 	* for each category discuss budget/tools/skillset/time required\\
 
-\section{Countermeasures to known attacks}
-\label{sec:defenses}
-
-Planarization defeats optical inspection with microscope (source: Introduction to hardware security and trust, sergei skorobogatov paper).\\
-Usual defence : have crypto keys in module IN processor with its own power, wound in wire and in epoxy- uppon tampering detection, power would be cut and the keys would be deleted. Systems used to detect transients(both voltage and current) as well as frequency changes and cause a reset upon abnormality detection, cutting the power and deleting the keys from the memory, but that was unstable \citep{anderson:cautionary_note}.
-	\begin{itemize}
-	\item overview of most popular techniques \\
-	\item benefits and how they improve the situation/approach the problem
-	\item added cost for this investment (in terms of hardware and money, transparency to the developers, runtime overhead etc)\\
-	\end{itemize}
-	
-	perhaps review some popular secure chips ?? IBM 4758 is a secure device \footnote{\href{http://www.cl.cam.ac.uk/~rnc1/descrack/ibm4758.html}{http://www.cl.cam.ac.uk/~rnc1/descrack/ibm4758.html}}, some Dallas chips and perhaps more.
-	
-	
-
-\section{Attacking The ATmega}
-\label{sec:attacking_mega}
-
-The ATmega is a typical MCU that is susceptible to a successful attack by the \textbf{Home-Hacker} class of attackers due to its weak protective mechanisms. While there is a way to deliver firmware updates to the MCU securely(\citep{tech:aes_bls}), it will be demonstrated that keeping the firmware secure on the device is impossible.
-
-The motivation behind attacking the ATmega 688/1284 is their popularity and to prove how easy it is
-
-	\subsection{Motivation}
-	
-	\subsection{Attack Overview}
-		* feasible? 
-		* added cost (in terms of \$\$, extra hardware and software implementation penalties/overhead)
-	
-
-\section{Evaluation}
-\label{sec:conclusion}
-
-No system is unbreakable and one can only harden their system enough to make the effort of breaking it unbearable to those they wish to protect against\citep{anderson:cautionary_note}\cite{website:scorobogatov_breaking_copy_protection}.
-
-	not sure if the subsections are needed here
-	\subsection{Securing the mega}
-		paragraph talking about why it's not a good idea to salvage the mega.
-	\subsection{Attacks and Solutions overview}
-	\subsection{Conclusions}
+\input{countermeasures.tex}
+\input{attacking_the_atmega.tex}
+\input{evaluation.tex}
 	
 	\bibliographystyle{plain}
 	\bibliography{irp_report}	
