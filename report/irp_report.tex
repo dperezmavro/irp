@@ -52,7 +52,9 @@ Attacks on MCUs may attempt to recover a number of artefacts, including cryptogr
 	Power glitches work by supplying either too much power or too little, shifting transistors' threshold and causing flip-flops to read their state incorrectly. Power glitches need to be carefully synchronised with the internal clock and prolonged attacks might damage the board.
 	
 	\subsubsection{Data Remanence}
-	Data remanence \citep{anderson:tamper_resistance}\citep{gutman:memory_remanence},
+	Prolonged exposure of SRAM cells to the same values can make the cells 'remember' their state, due to material properties and stress\citep{gutman:memory_remanence}. If for example a startup routine always writes security keys to the same memory region, after some time they key will be recoverable by looking at the physical state of the memory. Furthermore, data can be recovered from SRAM  by cooling it down for a period of time after power is removed.
+	
+	EEPROM suffers as well, but to a lesser extent, as material-wise one can only tell virgin-cells from used cells\citep{sergei:thesis}. 
 	\subsubsection{Timing Attacks}
 	Timing attacks exploit the software implementation of cryptographic algorithms. Compiler optimisations (avoiding unnecessary branches, register and cache usage) and other implementation choices make the execution time of an algorithm dependent on the input and the secret key, rather being fixed for any input. For example, when input is compared byte-wise with a key and rejected when the first non-matching byte is found, rather than first consuming the whole input string.
 	
