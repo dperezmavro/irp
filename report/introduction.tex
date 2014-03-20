@@ -1,0 +1,22 @@
+\section{Introduction}
+	This paper will present an overview of the current attacks and methods of tampering with Intellectual Property (IP) in MicroController Units (MCUs). In this context IP does not solely refer to the firmware running on the MCU but it includes information that could be obtained from that code, i.e. secrets or proprietary algorithms that help a manufacturer achieve higher performance over their competitors.
+	
+	Tampering (or theft) detection and prevention of the firmware of a MCU is a popular problem with active research, as solving it would benefit a lot of parties (including the government and the military), as MCUs are used in areas spanning from consumer electronics to missile guiding systems.
+	
+	A distinction between ordinary and secure MCUs should be made\citep{sergei:thesis} and, due to the sophistication in the protective mechanisms and the attack vectors, a broad classification of attackers as\cite{anderson:cautionary_note}:
+		\begin{itemize}
+			\item \textbf{Home Hackers} Clever and curious people with a very limited budget, perhaps with some degree of knowledge and no malicious intent, but with no time-limit.\\
+			\item \textbf{Semi-Professional Crackers} Professionals skilled on electronics with access to specialised equipment and resources. Their funding might be limited, malicious intent is unclear and they might be constrained in their time allowance.\\
+			\item \textbf{Funded Organisations} Organisations with access to MCU manufacturing equipment. Their funding is usually unconstrained, there usually exists malicious intent and their time schedule is usually tight.
+		\end{itemize}
+	
+	Firmware tampering or theft has a number of consequences. The most obvious consequence is an attacker downloading the code from a MCU and flashing it onto a MCU that they sell, effectively avoiding development and testing costs but still offering the same product as other manufacturers\cite{tech:aes_bls}. A less obvious, but perhaps more important, case is the case of back-dooring\footnote{The act of adding code to a system without the user's knowledge or approval, usually to accomplish nefarious tasks.} a MCU by re-flashing on it a modified version of the firmware with coded added by the attacker in order to accomplish their malicious intents, which could have disastrous consequences if these MCUs were used for military or other sensitive operations. 
+
+	\subsection{Objectives}
+	The aims of this paper are to review the possible attacks against the ATmega series of MCUs and provide possible countermeasures or possible methods of hardening a system. 
+	
+	Section \ref{sec:atmega_overview} will provide an overview of the ATmega series of AVRs and explain the most important hardware architecture aspects and protection mechanisms they offer. 
+	
+	Section \ref{sec:curr_attacks} will give a (brief) overview of the current attack techniques used to override currently implemented protection mechanisms, an overview of whom is given in Section \ref{sec:defenses}. 
+	
+	In section \ref{sec:attacking_mega} the current attacks will be related to the ATmega, by presenting the attack vectors in more detail as well as providing references to relevant work. Section \ref{sec:conclusion} will conclude the paper with a discussion on the usefulness of hardening the ATmega, contrasting that with using a MCU that is designed to be secure.
