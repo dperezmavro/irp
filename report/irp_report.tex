@@ -32,9 +32,8 @@
 \label{sec:curr_attacks}
 A distinction between \emph{passive} and \emph{active} attacks should be made. In the former the attacker simply monitors the chip's normal operation and tries to infer the input-output mapping whereas in the latter case the attacker actively manipulates either the chip or its operating environment with the aim of obtaining insight on the chips inner workings. 
 
-Attacks on MCUs may attempt to recover a number of artefacts, including cryptographic keys from the flash or the EEPROM or read the firmware off the flash and do not need to necessarily attack the hardware itself but can exploit flaws in algorithmic design and implementation and protocol failures or inter-component communication patterns\citep{anderson:cautionary_note}\citep{kocher:DPA}.
+Attacks on MCUs may attempt to recover a number of artefacts, including cryptographic keys the firmware and do not need to necessarily attack the hardware itself but can exploit flaws in algorithmic design and implementation and protocol failures or inter-component communication patterns\citep{anderson:cautionary_note}\citep{kocher:DPA}, obtain information by corrupting the memory or exploiting memory remanence\citep{sergei:thesis}\citep{gutman:memory_remanence}.
 
-[REWRITE THIS BIT/GATHER MORE INFO]obtain information by corrupting the memory or exploiting memory remanence\citep{sergei:thesis}.
 	\subsection{Non-Invasive Attacks}
 	Non-invasive attacks are attacks which require no de-packaging or special preparation of the chip and hence attacks under this category leave little tamper evidence behind. These attacks might be very time consuming and are not guaranteed to be successful, but are very easy and cheap to replicate once found. Furthermore, non-invasive attacks could target badly implemented communication or security protocols in order to bypass security restrictions.
 	
@@ -44,9 +43,9 @@ Attacks on MCUs may attempt to recover a number of artefacts, including cryptogr
 	
 	Simple Power Analysis(SPA) involves direct observation of the MCU when it performs cryptographic operations and can leak information about both the keys and the cryptographic operations themselves (i.e. nature or structure of the algorithm). 
 
-	Differential Power Analysis(DPA) extracts sensitive information by using statistical techniques on very large traces. The techniques involves obtaining power traces of known ciphertexts and individual bits of the key are recovered by analysing the differences in power consumption.
+	Differential Power Analysis(DPA) extracts sensitive information by using statistical techniques on very large traces. The techniques involves obtaining power traces of known ciphertexts(but not necessarily knowing the ciphertexts) and individual bits of the key are recovered by analysing the differences in power consumption\citep{kocher:DPA}.
 	
-	One can avoid noise in their power measurements by carefully 
+	One can generally avoid noise in their power measurements by sampling the voltage (usually) on the ground line.
 	\subsubsection{Glitch Attacks}
 	power/clock glitch attacks
 	\subsubsection{Data Remanence}
