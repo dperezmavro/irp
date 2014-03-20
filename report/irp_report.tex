@@ -41,15 +41,15 @@ Attacks on MCUs may attempt to recover a number of artefacts, including cryptogr
 	
 	Simple Power Analysis(SPA) involves direct observation of the MCU when it performs cryptographic operations and can leak information about both the keys and the cryptographic operations themselves (i.e. nature or structure of the algorithm). 
 
-	Differential Power Analysis(DPA) extracts sensitive information by using statistical techniques on very large traces. The techniques involves obtaining power traces of known ciphertexts(but not necessarily knowing the ciphertexts) and individual bits of the key are recovered by analysing the differences in power consumption\citep{kocher:DPA}.
+	Differential Power Analysis(DPA) extracts sensitive information by using statistical techniques on very large traces. The techniques involves obtaining power traces of known cipher-texts(but not necessarily knowing the cipher-texts) and individual bits of the key are recovered by analysing the differences in power consumption\citep{kocher:DPA}.
 	
 	One can generally avoid noise in their power measurements by sampling the voltage (usually) on the ground line.
 	\subsubsection{Glitch Attacks}
-	\emph{Power glitches} and \emph{clock glitches} aim to make the CPU skip or execute incorrect instructions by applying transients. This attack can target in dividual components of an MCU and a systematic search can deduce which components are affected by a given glitch sequence.
+	\emph{Power glitches} and \emph{clock glitches} aim to make the CPU skip or execute incorrect instructions by applying transients. This attack can target in individual components of an MCU and a systematic search can deduce which components are affected by a given glitch sequence.
 	
-	Clock glithces involve increasing the clock signal frequency so that some flip flops sample their input before being updated and hence report an incorrect value. Clock glitches are mainly aimed against software-based protection mechanisms, affecting CPU operation by suppling the CPU with incorrect data.
+	Clock glitches involve increasing the clock signal frequency so that some flip flops sample their input before being updated and hence report an incorrect value. Clock glitches are mainly aimed against software-based protection mechanisms, affecting CPU operation by supplying the CPU with incorrect data.
 	
-	Power glitches work by suppling either too much power or too little, shifting transistors' threshold and causing flip-flops to read their state incorrectly. Power glitches need to be carefully synchronized with the internal clock and prolonged attacks might damage the board.
+	Power glitches work by supplying either too much power or too little, shifting transistors' threshold and causing flip-flops to read their state incorrectly. Power glitches need to be carefully synchronised with the internal clock and prolonged attacks might damage the board.
 	
 	\subsubsection{Data Remanence}
 	Data remanence \citep{anderson:tamper_resistance}\citep{gutman:memory_remanence},
