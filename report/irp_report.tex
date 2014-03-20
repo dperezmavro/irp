@@ -1,7 +1,4 @@
-%\documentclass[10pt,a4paper,twocolumn]{article}
 \documentclass[10pt,journal,compsoc]{IEEEtran}
-
-\usepackage[top=0.6in]{geometry}
 
 %for links
 %\usepackage[hidelinks]{hyperref}
@@ -48,15 +45,20 @@ Attacks on MCUs may attempt to recover a number of artefacts, including cryptogr
 	
 	One can generally avoid noise in their power measurements by sampling the voltage (usually) on the ground line.
 	\subsubsection{Glitch Attacks}
-	power/clock glitch attacks
+	\emph{Power glitches} and \emph{clock glitches} aim to make the CPU skip or execute incorrect instructions by applying transients. This attack can target in dividual components of an MCU and a systematic search can deduce which components are affected by a given glitch sequence.
+	
+	Clock glithces involve increasing the clock signal frequency so that some flip flops sample their input before being updated and hence report an incorrect value. Clock glitches are mainly aimed against software-based protection mechanisms, affecting CPU operation by suppling the CPU with incorrect data.
+	
+	Power glitches work by suppling either too much power or too little, shifting transistors' threshold and causing flip-flops to read their state incorrectly. Power glitches need to be carefully synchronized with the internal clock and prolonged attacks might damage the board.
+	
 	\subsubsection{Data Remanence}
 	Data remanence \citep{anderson:tamper_resistance}\citep{gutman:memory_remanence},
 	\subsubsection{Timing Attacks}
-	Timing attacks are possible because of the software implementation of cryptographic algorithms, where compiler optimisations (avoiding unnecessary branches, register and cache usage) and other implementation choices make the execution time of an algorithm dependent on the input and the secret key, rather than having a fixed time for every key. A characteristic example would be when an input is compared byte-wise with a key and rejected when the first non-matching byte is found, rather than first consuming the whole input string.
+	Timing attacks exploit the software implementation of cryptographic algorithms. Compiler optimisations (avoiding unnecessary branches, register and cache usage) and other implementation choices make the execution time of an algorithm dependent on the input and the secret key, rather being fixed for any input. For example, when input is compared byte-wise with a key and rejected when the first non-matching byte is found, rather than first consuming the whole input string.
 	
-	Different instructions take different time to execute(e.g. \texttt{MOV eax,[eax]} is considerably slower than \texttt{INC eax}) and thus one could collect timing information on various input messages and systematically deduce the correct key. 
+	Different instructions take different time to execute(e.g. \texttt{MOV eax,[eax]} is considerably slower than \texttt{INC eax}) and thus one could collect timing information for various input messages and systematically deduce the correct key. 
 	
-	If timing information is correlated with power analysis then defences such as constant instruction execution time could be defeated. For example, one might use \texttt{NOP}s in the case of a wrong key in order for rejection and confirmation responses to have constant execution time. However, \texttt{NOP} would consume substantially less power than \texttt{INC eax} and hence correlating timing and power consumption information could prove dangerous.
+	If timing information is correlated with power analysis then defences such as constant instruction execution time could be defeated. One might use \texttt{NOP}s in the case of a wrong key in order for rejection and confirmation responses to have constant execution time but \texttt{NOP} consumes substantially less power than \texttt{INC eax} and correlating timing and power consumption information would reveal this.
 
 	\subsection{Semi-Invasive Attacks}
 	some sort of fault injection?
