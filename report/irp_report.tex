@@ -53,7 +53,7 @@ Attacks on MCUs may attempt to recover a number of artefacts, including cryptogr
 	Power glitches work by supplying either too much power or too little, shifting transistors' threshold and causing flip-flops to read their state incorrectly. Power glitches need to be carefully synchronised with the internal clock and prolonged attacks might damage the board.
 	
 	\subsubsection{Data Remanence}
-	Prolonged exposure of SRAM cells to the same values can make the cells 'remember' their state, due to material properties and stress\citep{gutman:memory_remanence}. If for example a startup routine always writes security keys to the same memory region, after some time they key will be recoverable by looking at the physical state of the memory. Furthermore, data can be recovered from SRAM  by cooling it down for a period of time after power is removed.
+	Prolonged exposure of SRAM cells to the same values can make the cells 'remember' their state, due to material properties and stress\citep{gutman:memory_remanence}. If for example a start-up routine always writes security keys to the same memory region, after some time they key will be recoverable by looking at the physical state of the memory. Furthermore, data can be recovered from SRAM  by cooling it down for a period of time after power is removed.
 	
 	EEPROM suffers as well, but to a lesser extent, as material-wise one can only tell virgin-cells from used cells\citep{sergei:thesis}. 
 	\subsubsection{Timing Attacks}
@@ -66,9 +66,12 @@ Attacks on MCUs may attempt to recover a number of artefacts, including cryptogr
 	\subsection{Semi-Invasive Attacks}
 	some sort of fault injection?
 		all memory types are linear( as well as memory mapped IO) - related to memory scanning attacks by glitching and power faults (stop making call or jump instructions)
+	
 	\subsection{Invasive Attacks}
-	mention decaping and chip exposure. can be done by sending to hardware failure test labs\citep{website:hacking_the_pic} or by chemicals etc \citep{anderson:cautionary_note}
-	Microprobing
+	Invasive attacks require direct access to the board's surface and as a result destroy the packaging in the process, therefore leaving tamper evidence. Invasive attacks usually aim to understand how a board functions and then develop cheaper attacks for that chip, as invasive attacks are laborious, require expensive equipment and highly skilled attackers and usually are carried out in a number of stages.
+	
+	The first stage is exposing the chip surface. Usually this involves (partially or completely) destroying the packaging with any means necessary, i.e. by using chemicals or drilling. While this is a process that is not very complicated\citep{sergei:thesis}, one might have trouble finding the chemicals required. An alternative approach is to send the chip to a failure analysis lab for de-caping\citep{website:hacking_the_pic}.
+	
 	overview of attack categories [each one to the category that it corresponds above]
 	\begin{itemize}
 		\item microprobing \\
