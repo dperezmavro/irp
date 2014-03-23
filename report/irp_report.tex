@@ -2,7 +2,7 @@
 \documentclass[10pt,a4paper,twocolumn]{article}
 
 %for links
-%\usepackage[hidelinks]{hyperref}
+%\usepackage[hidelinks]{hyperref} %used to hide borders
 \usepackage{hyperref}
 
 %for bilbiography
@@ -19,11 +19,11 @@
 
 \begin{document}
 	\maketitle
-	
-\section*{\emph{Abstract}}
-	\textbf{\emph{The most abstract abstract of some abstracts, full of abstractions.}}
-	
 
+%input sections	
+\section*{\emph{Abstract}}
+The most abstract abstract of some abstracts, full of abstractions.
+	
 \input{introduction.tex}
 \input{atmega_specs.tex}
 \input{attacks.tex}	
@@ -31,7 +31,6 @@
 \input{attacking_the_atmega.tex}
 \input{evaluation.tex}
 	
-	\bibliographystyle{plain}
-	\bibliography{irp_report}	
-	
+\bibliographystyle{plain}
+\bibliography{irp_report}		
 \end{document}
