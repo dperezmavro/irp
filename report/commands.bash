@@ -6,4 +6,6 @@ if [ $# -lt 1 ]; then
 elif [ "$1" = "-c" -o "$1" = "--clean" ]; then
     echo "Cleaning temporary files..."
     rm *.log *.aux *.out *.gz *.bbl *.blg
+elif [ "$1" = "-s" -o "$1" = "--save" ]; then
+    git commit -am "$2"
 fi
