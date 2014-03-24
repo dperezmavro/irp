@@ -15,7 +15,7 @@
 	\subsubsection{Memory Organisation}
 	The 644/1284 are equipped with an EEPROM, flash memory, SRAM, a large number of general purpose registers and a large number of I/O registers (in order to be able to perform I/O) and all memory (including I/O memory mapped images) is linear, i.e. it follows the flat memory model.
 	
-	The flash memory is separated into two regions, the bootloader section and application code section. The boundary between the two sections can be configured by programming the appropriate fuses, and the page size can also be configured that way as well. Both sections hold code, however code residing in the bootloader section can execute a special instruction (\texttt{SPM}\footnote{\texttt{SPM} = Store Program Code}) which allows the bootloader code to write to \textit{any} section in the flash memory and hence possibly modify itself(designed for purposes such as firmware upgrades). The bootloader code can be triggered by a direct jump from the application section or by programming the reset vector via the reset fuse to point to the appropriate section of the bootloader code. 
+	The flash memory is separated into two regions, the bootloader section and application code section. The boundary between the two sections can be configured by programming the appropriate fuses, and the page size can also be configured that way as well. Both sections hold code, however code residing in the bootloader section can execute a special instruction (\texttt{SPM}\footnote{\texttt{SPM} = Store Program Code, assembly instruction for the AVR.}) which allows the bootloader code to write to \textit{any} section in the flash memory and hence possibly modify itself(designed for purposes such as firmware upgrades). The bootloader code can be triggered by a direct jump from the application section or by programming the reset vector via the reset fuse to point to the appropriate section of the bootloader code. 
 	
 	The EEPROM is memory for data that needs to persist between reboots of the MCU and hence it is (widely) used to hold configuration variables and other non-temporary preferences the application code (or the bootloader) may need, having an average lifespan is 100,000 write cycles per page. 
 	
@@ -23,7 +23,7 @@
 	
 	\begin{figure}
 		\includegraphics[scale=0.7]{img/stack.png}
-		\caption{SRAM layout for the ATmega 644 and 1284. \textbf{Source}:\protect\citep{atmega_manual}.}
+		\caption{SRAM layout for the ATmega 644 and 1284. \textbf{Reproduced from} \protect\citep{atmega_manual}.}
 		\label{fig:stack}		
 	\end{figure}
 	
@@ -46,13 +46,17 @@
 \end{figure*}	
 		
 \begin{table}
-	\begin{tabular}{| c | p{2cm} | p{1.3cm} | p{1.5cm} | p{2.8cm} | p{1.9cm} |}
+	\caption{{\footnotesize Memory differences for the AVR ATmega644/1284}}
+	\label{table:avr_specs}
+	\begin{tabular}{| c | p{2cm} | p{1.8cm} | p{1.5cm} |}
+		\hline
 		\textbf{Model} & \textbf{EEPROM (Kb)} & \textbf{SRAM (Kb)} & \textbf{Flash (Kb)}\\
+		\hline	\hline
 		ATmega644 & 2 & 4 & 64\\
 		ATmega1284 & 4 & 16 & 128\\
+		\hline
 	\end{tabular}
-	\caption{Specification overview for the AVR ATmega644 and ATmega1284}
-	\label{table:avr_specs}
+	
 \end{table}
 	
 	\subsection{ATMega Security Features}
@@ -62,6 +66,8 @@
 	The erasing is performed with the sequence of events presented above and this is important, as one does not want to remove the access protection before removing all sensitive data and hence the Lock bits are set to 1 only after the whole program memory has been erased. Even though the flash memory has an average lifespan of 10,000 write cycles (as well as programming being relatively expensive as an operation) this approach makes sense as the ultimate goal is to preserve the intellectual property on the board rather than the board itself.
 	
 	\begin{table}
+		\caption{{\footnotesize Security lock bits offered by the ATmega644 and ATmega1284. BLB stands for Boot Lock Bit and LB for Lock Bit.}}
+		\label{table:lock_bits}
 		\center
 		\begin{tabular}{| c | c | c | c |}
 			\hline
@@ -75,8 +81,7 @@
 			LB1 & 1 & 1 \\
 			\hline
 		\end{tabular}
-		\caption{Security lock bits offered by the ATmega644 and ATmega1284. BLB stands for Boot Lock Bit and LB for Lock Bit.}
-		\label{table:lock_bits}
+		
 	\end{table}
 	
 Table \ref{table:lock_bits}	 provides an outline of the available Lock bits provided by the ATmega series. The functionality of the BLB1 group is to control access and modification of the bootloader section, group BLB0 bits control access to the application code section and group LB bits are responsible for controlling modifications on the EEPROM and Flash.A detailed explanation of their functionality and how to use them is given in \citep{atmega_manual}.
