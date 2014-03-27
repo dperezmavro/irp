@@ -1,4 +1,4 @@
-\documentclass[10pt,journal,compsoc,a4paper]{IEEEtran}
+\documentclass[10pt,journal,compsoc, a4paper]{IEEEtran}
 %\documentclass[10pt,a4paper,twocolumn]{article}
 
 %for links
@@ -18,11 +18,17 @@
 \date{\today}
 
 \begin{document}
-	\maketitle
 
 %input sections	
-
+\IEEEcompsoctitleabstractindextext{
 \input{abstract.tex}
+
+\begin{IEEEkeywords}
+Microcontroller attacks, firmware dumping, reverse engineering, microprobing, microcontroller protection, defense engineering
+\end{IEEEkeywords}
+}
+\maketitle
+\IEEEdisplaynotcompsoctitleabstractindextext
 \input{introduction.tex}
 \input{atmega_specs.tex}
 \input{attacks.tex}	
@@ -31,5 +37,5 @@
 \input{evaluation.tex}
 	
 \bibliographystyle{plain}
-{\footnotesize \bibliography{irp_report}	}
+{\footnotesize \bibliography{irp_report}	} % hue hue hue hue
 \end{document}
