@@ -2,8 +2,8 @@
 %\documentclass[10pt,a4paper,twocolumn]{article}
 
 %for links
-\usepackage[hidelinks]{hyperref} %used to hide borders
-%\usepackage{hyperref}
+%\usepackage[hidelinks]{hyperref} %used to hide borders
+\usepackage{hyperref}
 
 %for bilbiography
 \usepackage{natbib}
@@ -12,6 +12,8 @@
 \usepackage{graphicx}
 \usepackage{caption}
 \usepackage{subcaption}
+
+\usepackage{color}
 
 \author{Dionisio Perez-Mavrogenis}
 \title{Firmware Protection and Attacks Against the ATmega Microcontrollers}
@@ -29,6 +31,8 @@ Microcontroller attacks, firmware dumping, reverse engineering, microprobing, mi
 }
 \maketitle
 \IEEEdisplaynotcompsoctitleabstractindextext
+
+{\color{red} review wherever I say working attack against the atmega to possible attack. reduce structure of things, merge sentences together. also make sure that spaces between Fig. or Table and number are unbreakable using the tilde. also consistently name abbreviations, could have abbreviation table.}
 \input{introduction.tex}
 \input{atmega_specs.tex}
 \input{attacks.tex}	
