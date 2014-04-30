@@ -15,6 +15,9 @@
 
 \usepackage{color}
 
+\newcommand{\red}[1]{{\color{red} #1}}
+ 
+
 \author{Dionisio Perez-Mavrogenis}
 \title{Firmware Protection and Attacks Against the ATmega Microcontrollers}
 \date{\today}
@@ -32,7 +35,7 @@ Microcontroller attacks, firmware dumping, reverse engineering, microprobing, mi
 \maketitle
 \IEEEdisplaynotcompsoctitleabstractindextext
 
-{\color{red} review wherever I say working attack against the atmega to possible attack. reduce structure of things, merge sentences together. also make sure that spaces between Fig. or Table and number are unbreakable using the tilde. also consistently name abbreviations, could have abbreviation table.}
+\red{review wherever I say working attack against the atmega to possible attack. reduce structure of things, merge sentences together. also make sure that spaces between Fig. or Table and number are unbreakable using the tilde. also consistently name abbreviations, could have abbreviation table. mention book pages from books from which info was taken. rename decaping to Decapsulation }
 \input{introduction.tex}
 \input{atmega_specs.tex}
 \input{attacks.tex}	
