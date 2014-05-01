@@ -12,18 +12,22 @@ Non-invasive attacks are the least sophisticated type of attack but protection a
 
 also have self health tests to detect chip modification \citep{anderson:tamper_resistance}
 
-Protection against invasive and non-invasive attacks is a lot harder because these attacks involve a range of chip modifications (from decapsulation to modification of the die), requiring varied anti-tampering mechanisms; we will proceed to give a description in the order in which decapsulation occurs. Thwarting decapsulation can get very creative as decapsulation is dependent on the material from which the chip packaging is made from (varied from pure plastic to ceramic or metal) and its physical construction. tries 
-
-In order to protect from semi-invasive attacks (such as exposure to radiation or optical inspection-doping can also reduce light penetration to reduce imaging attacks \citep{sergei:thesis})
+Protection against invasive and non-invasive attacks is a lot harder because these attacks involve a range of chip modifications (from decapsulation to modification of the die), requiring varied anti-tampering mechanisms; we will proceed to give a description in the order in which decapsulation occurs. Thwarting decapsulation can get very creative as decapsulation techniques depend on the material from which the chip packaging is made from (varied from pure plastic to ceramic or metal) and its physical construction, with techniques ranging from using a sharp object to pull the top off \citep{sergei:thesis} to using acids and other chemicals \citep{hwre}\citep{sergei:thesis} to eat the top layer away and expose the die surface and manufacturers trying to make the decapsulation process as hard as possible. Common techniques involve sealing the die in conductive packaging or making the packaging from conductive and very hard epoxy such that packaging removal will result in power supply loss and a response from intrusion detection circuitry from the chip; common responses are erasing sensitive keys from internal battery backed SRAM\citep{hwre}, resetting of the device \citep{sergei:thesis} or, for military grade equipment, have reactive chemicals or charges embedded in the packaging that would respond to stimuli such as other chemicals in a very violent manner and destroy the chip completely. 
 
 top metal conductive mesh, alert on power loss or short circuit (Atmel ATSHA204) 
-conductive packaging and internal battery powered SRAM ,(instability reference \citep{anderson:cautionary_note}) optical sensors (\citep{sergei:thesis}, IBM reference, \citep{hwre}
-glitch sensors (power/radiation/temperature/clock) - use of multiple clocks
-metal circuitry ,
-protective metal mesh on top of memories, 
+
+design obscurification : place features likely to be tampered with nect to critical data (security bits next to IVT )\citep{hwre}, use multiple and scatter them around\citep{sergei:thesis}, make wires into a maze to make human analysis more difficult \citep{hwre}. top layer metal mesh also protects against micro-probing, imaging, semi-invasive attacks - radiation, modification and location of critical components\citep{hwre}\citep{sergei:thesis}
+
+In order to protect from semi-invasive attacks (such as exposure to radiation or optical inspection) doping can also reduce light penetration to reduce imaging attacks \citep{sergei:thesis})
+tilt sensors \citep{website:ibm_secure}
+
+optical sensors (\citep{sergei:thesis}, IBM reference, \citep{hwre}
+glitch sensors (power/radiation/temperature/clock) - use of multiple clocks, \red{instability reference \citep{anderson:cautionary_note}}
+tilt sensors 
 Planarization defeats optical inspection with microscope \citep{sergei:thesis}.\\
-moving lock bits around and introducing multiple lock bits\citep{sergei:thesis} careful placement \citep{hwre}
 things also shrink
+
+
 
 not perfect : give example for failure of oprical sensors
 Scatter unshielded phototransistors around
