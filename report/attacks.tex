@@ -32,7 +32,7 @@ The following discussion closely follows \citep{sergei:thesis}.
 	Glitch attacks are especially dangerous as they may abuse the program counter in order to map out the memory, which is linear as described in \ref{sec:atmega_overview}.
 	
 	\subsubsection{Data Remanence}
-	{\color{red} explain more, make more technical}
+	{\color{red} explain more, make more technical. also cite \citep{website:ibm_secure} who also talks about memory remanence}
 	Prolonged exposure of SRAM cells to the same values can make the cells 'remember' their state, due to material properties and stress\citep{gutman:memory_remanence}. Furthermore, cooling the memory down can prolong the time for the data to leave the memory \citep{gutman:memory_remanence}\citep{sergei:RAM}\citep{sergei:thesis}. If, for example, a start-up routine always writes security keys to the same memory location, after some time they key will be recoverable by looking at the physical state of the memory or by cooling down the chip, starting it and then reading the memory.
 	
 	EEPROM suffers as well, but to a lesser extent, as material-wise one can only tell virgin-cells from used cells\citep{sergei:thesis}. 
