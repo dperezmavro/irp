@@ -3,7 +3,7 @@
 \label{sec:curr_attacks}
 A distinction between \emph{passive} and \emph{active} attacks should be made. In the former the attacker simply monitors the chip's normal operation and tries to infer the input-output mapping whereas in the latter case the attacker actively manipulates either the chip or its operating environment with the aim of obtaining insight on the chips inner workings. 
 
-Attacks on MCUs may attempt to recover a number of artefacts, including cryptographic keys the firmware and do not need to necessarily attack the hardware itself but can exploit flaws in algorithmic design and implementation and protocol failures or inter-component communication patterns\citep{anderson:cautionary_note}\citep{kocher:DPA}, obtain information by corrupting the memory or exploiting memory remanence\citep{sergei:thesis}\citep{gutman:memory_remanence}.
+Attacks on MCUs may attempt to recover a number of artefacts, including cryptographic keys the and firmware and do not need to necessarily attack the hardware itself but can exploit flaws in algorithmic design and implementation and protocol failures or inter-component communication patterns\citep{anderson:cautionary_note}\citep{kocher:DPA}, obtain information by corrupting the memory or exploiting memory remanence\citep{sergei:thesis}\citep{gutman:memory_remanence}.
 
 The following discussion closely follows \citep{sergei:thesis}.
 
@@ -21,15 +21,11 @@ The following discussion closely follows \citep{sergei:thesis}.
 	Differential Power Analysis(DPA) extracts sensitive information by using statistical techniques on very large traces. The techniques involves obtaining power traces of known cipher-texts(but not necessarily knowing the corresponding plain-texts) and individual bits of the key are recovered by analysing the differences in power consumption\citep{kocher:DPA}\citep{anderson:tamper_resistance}.
 	
 	One can generally avoid noise in their power measurements by sampling the voltage (usually) on the ground line\citep{sergei:thesis}.
-	\subsubsection{Glitch Attacks}
-	{\color{red} say that glitch is inserted somewhere and that somewhere can be shown tracked down by power trace analysis. trial and error, repetitive process and can systematically be explored \citep{website:riscure}}
-	\emph{Power glitches} and \emph{clock glitches} aim to make the CPU skip or execute incorrect instructions by applying transients. This attack can target in individual components of an MCU and a systematic search can deduce which components are affected by a given glitch sequence.
+
+	\subsubsection{Glitch and Fault Injection Attacks}
+	Glitches and faults are achieved by exposing the device in operating conditions that it was not meant to operate in and attempt to exploit undefined behaviour of the MCU\citep{sergei:thesis}\citep{avr_mega}. Although inducing a fault is easy, inducing an exploitable fault is hard but can be achieved by systematic search {sergei:thesis}\citep{glitches_paper}\citep{website:riscure}.
 	
-	Clock glitches involve increasing the clock signal frequency so that some flip flops sample their input before being updated and hence report an incorrect value. Clock glitches are mainly aimed against software-based protection mechanisms, affecting CPU operation by supplying the CPU with incorrect data.
-	
-	Power glitches work by supplying either too much power or too little, shifting transistors' threshold and causing flip-flops to read their state incorrectly. Power glitches need to be carefully synchronised with the internal clock and prolonged attacks might damage the board.
-	
-	Glitch attacks are especially dangerous as they may abuse the program counter in order to map out the memory, which is linear as described in \ref{sec:atmega_overview}.
+		\emph{Power glitches} and \emph{clock glitches} aim to make the CPU skip or execute incorrect instructions by applying transients. This attack can target in individual components of an MCU and a systematic search can deduce which components are affected by a given glitch sequence\footnote{\red{maybe include diagrams of clock glitch}}. Clock glitches involve increasing the clock signal frequency so that some flip flops sample their input before being updated and hence report an incorrect value. Clock glitches are mainly aimed against software-based protection mechanisms, affecting CPU operation by supplying the CPU with incorrect data.	Power glitches work by supplying either too much power or too little, shifting transistors' threshold and causing flip-flops to read their state incorrectly. Power glitches need to be carefully synchronised with the internal clock and prolonged attacks might damage the board. Glitch attacks are especially dangerous as they may abuse the program counter in order to map out the memory\citep{}.
 	
 	\subsubsection{Data Remanence}
 	{\color{red} explain more, make more technical. also cite \citep{website:ibm_secure} who also talks about memory remanence}
@@ -60,8 +56,7 @@ The following discussion closely follows \citep{sergei:thesis}.
 	Similar to Backside Imaging, lasers can be used to read the state of memory cells in CMOS SRAM.
 	
 	\subsection{Invasive Attacks}
-\red{reduce structure}
-	Invasive attacks require direct access to the board's surface and as a result destroy the packaging in the process, therefore leaving tamper evidence. Invasive attacks usually aim to understand how a MCU works and then develop cheaper attacks for that chip, as invasive attacks are laborious, require expensive equipment and highly skilled attackers. {\color{red} look at lecture 1 of HWRevEng course and http://siliconpr0n.org/wiki/doku.php?id=decap:epoxy}
+	Invasive attacks require direct access to the board's surface and as a result destroy the packaging in the process, therefore leaving tamper evidence\citep{sergei:thesis}\citep{hwre}. Invasive attacks usually aim to understand how a MCU works and then develop cheaper non-invasive or semi-invasive attacks for that chip, as invasive attacks are laborious, require expensive equipment and highly skilled attackers\citep{sergei:thesis}.
 	
 	\paragraph{Exposing the die surface} This usually involves destroying the packaging by using chemicals or drilling(or other methods). While this is a process that is not very complicated\citep{sergei:thesis}, one might have trouble finding the chemicals required. An alternative for depackaging the chip is to send it to a failure analysis lab\citep{website:hacking_the_pic}.
 	
