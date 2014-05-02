@@ -51,7 +51,7 @@ The following discussion closely follows \citep{sergei:thesis}.
 	Older chips and chips that are designed to withstand low-cost non-invasive (i.e. no depackaging) attacks are susceptible to having parts of the memory altered if it is exposed under UV light. Security fuses that prevent read-back of the memory could have their state reset by sufficient exposure under UV light. The attacker must locate the security fuse though, which can be very tricky. 
 
 	\subsubsection{Backside Imaging}
-	Backside imaging involves shining IR light on the rear side of the chip and imaging it from this angle, since it is a mirror-image of the front side. This is possible because, usually, light shown through the backside does not have to go though multiple layers and hence protective metal meshes(discussed in Section \ref{sec:defenses}) or normal chip layers are avoided. On some chips it is possible to extract ROM contents via this technique.
+	Backside imaging involves shining IR light on the rear side of the chip and imaging it from this angle, since it is a mirror-image of the front side. This is possible because, usually, light shown through the backside does not have to go though multiple layers and hence protective metal meshes(discussed in Section \ref{sec:defenses}) or normal chip layers are avoided. On some chips it is possible to extract ROM contents via this technique by directly observing the memory.
 	
 	\subsubsection{Photo Carrier Stimulation}
 
@@ -65,7 +65,7 @@ The following discussion closely follows \citep{sergei:thesis}.
 	
 	\paragraph{Exposing the die surface} This usually involves destroying the packaging by using chemicals or drilling(or other methods). While this is a process that is not very complicated\citep{sergei:thesis}, one might have trouble finding the chemicals required. An alternative for depackaging the chip is to send it to a failure analysis lab\citep{website:hacking_the_pic}.
 	
-	\paragraph{Reverse engineering} both hardware and the software. Hardware reverse engineering requires using reflected light microscopes or SEM (Scanning Electron Microscope) for constructing a complete image of the surface. Layer removal might be required if deeper layers are not visible in order to have a complete view of the device. Software reverse engineering can be accomplished when one has obtained access to the memory.
+	\paragraph{Reverse engineering} both hardware and the software. Hardware reverse engineering requires using reflected light microscopes or SEM (Scanning Electron Microscope) for constructing a complete image of the surface. \red{maybe present layer removal techniques}Layer removal might be required if deeper layers are not visible in order to have a complete view of the device. Software reverse engineering can be accomplished when one has obtained access to the memory.
 	
 	\paragraph{Micro-probing and Modification} In micro-probing sub-micrometer thickness probes are used to establish contact with the bus lines in order to observe and manipulate bus signals. To achieve reliable results a micro-probing workstation\footnote{all moving components should have micrometer precision\red{provide citation}} is used, consisting of a microscope, micro-positioners for the probes, a movable base and a test socket to place the chip. In order to establish contact with the bus lines the passivation layer should be removed, usually done with UV or green lasers, and access to bus lines of deeper layers can be achieved by using a FIB workstation.
 	
