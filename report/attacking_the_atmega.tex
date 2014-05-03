@@ -1,10 +1,15 @@
 \section{Attacking The ATmega}
 \label{sec:attacking_mega}
 
-The ATmega644 represents a standard low-cost microcontroller that could be used for 
+In this section we present the suggested attack that should work against the ATmega644. We believe that someone with a modest level of competence in electronics could successfully bypass the security fuse and lock-bit protections on the ATmega644 board, as researches have succeeded in bypassing the protection imposed by the AVR family in numerous ways. All researches used non-invasive attacks in order to achieve this since there is no need for more sophisticated attacks.Clock glitch attacks against AVR chips were successfully applied by \citep{glitches_paper} against an ATmega model and \citep{avr_mega} managed to retrieve AES and DES cryptographic keys from an XMEGA. Furthermore, \citep{sergei:thesis} also points out that AVR MCUs are susceptible to glitch attacks due to their security fuse implementation method. 
 
- is a typical MCU that is susceptible to a successful attack by the \textbf{Home-Hacker} class of attackers due to its weak protective mechanisms. While there is a way to deliver firmware updates to the MCU securely\citep{tech:aes_bls}, keeping the firmware secure on the device is impossible.
+The suggested attack method will closely follow \citep{glitches_paper}, further supported by results from other research as well. We will be a Class-I attacker performing a non-invasive clock-glitch attack on an ATmega644-based product. The equipment we should have access should be found in any descent university's electronics laboratory and our information regarding the chip will come from datasheets. 
 
-companies tend to make security claims for their products that do not stand or to market their protection as sufficient\citep{sergei:thesis}. atmega are popular and represent a typical low-end microcontroller \citep{glitches_paper}. have not found anything current. 
+
+While there is a way to deliver firmware updates to the MCU securely\citep{tech:aes_bls}, keeping the firmware secure on the device is impossible.
+
+might be hard to sync with internal clock \citep{sergei:thesis}\citep{avr_mega}
+
+
 
 \red{mention service that breaks chips. mention ChipWhisperer paper. perhaps mention pipeline/give examples of clock glitch. mention that no paper found targeting these devices. \citep{glitches_paper} this guy breaks and \citep{sergei:theis} and website of chinese dude that break atmels.}

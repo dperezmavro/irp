@@ -3,9 +3,9 @@
 	
 	A distinction between ordinary and secure MCUs should be made\citep{sergei:thesis} and, due to the sophistication of the protective mechanisms and the attacks, a broad classification of attackers as\cite{anderson:cautionary_note}:
 		\begin{itemize}
-			\item \textbf{Home Hackers} Clever and curious people with a very limited budget, with some degree of knowledge and no time restrictions.\\
-			\item \textbf{Semi-Professional Crackers} Professionals skilled on electronics with access to specialised equipment and resources. Their time allowance and funding might be limited.\\
-			\item \textbf{Funded Organisations} Organisations with access to MCU manufacturing equipment. Their funding is usually unconstrained and their time schedule is usually tight.
+			\item \textbf{Class I} Clever and curious people with a very limited budget, with some degree of knowledge and no time restrictions.\\
+			\item \textbf{Class II} Professionals skilled on electronics with access to specialised equipment and resources. Their time allowance and funding might be limited.\\
+			\item \textbf{Class III} Organisations with access to MCU manufacturing equipment. Their funding is usually unconstrained and their time schedule is usually tight.
 		\end{itemize}
 	
 	Firmware tampering has a number of consequences, the most obvious being an attacker downloading the code from a MCU and flashing it onto a MCU that they sell, effectively avoiding development and testing costs but still offering the same product as other manufacturers\cite{tech:aes_bls}. A less obvious, but perhaps more important, case is the case of back-dooring\footnote{The act of adding code to a system without the user's knowledge or approval, usually to accomplish nefarious tasks.} a MCU by re-flashing on it a modified version of the firmware with coded added by the attacker in order to accomplish their malicious intents. Furthermore MCU firmware might contain government or industrial secrets whose integrity and value is more valuable than the integrity of the MCU.
