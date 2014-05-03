@@ -5,25 +5,29 @@ In this section we present the suggested attack that should work against the ATm
 
 The suggested attack method will closely follow Balasch et al. \citep{glitches_paper}, further supported by results from other research as well. We will be a Class-I attacker performing a non-invasive clock-glitch attack. The equipment we have access can be found in any descent university's electronics laboratory and our information regarding the chip will come from datasheets. We believe that the attack engineered by Balasch et al. \citep{glitches_paper} on the ATmega163 can be ported over to the ATmega644 due to their similarities. Both devices belong to the same family and by comparing their datasheets we can see that the 644 possesses all the hardware features that make the attack possible on the 163, namely it operates on an external clock signal and has a two stage pipeline\citep{glitches_paper}. Furthermore, the two devices have an almost identical, small, instruction set.
 
-The attack should be tailored to a particular goal and hence we should distinguish the task of recovering cryptographic material from the task of executing unintended instructions, including revealing memory contents. In both cases monitoring the device's power consumption will help us gain some insight into what the device is doing, like in Fig.~\ref{fig:des_power}, and will furthermore allow us to synchronize with the device's operations \citep{sergei:thesis}\citep{avr_mega}. 
+The attack should be tailored to a particular goal and hence we should distinguish between recovering cryptographic material from manipulating program or data flow. Subtleties that should be noted include that the glitch attack should be synchronized with the devices operation, achievable by power trace analysis like in  Fig.~\ref{fig:des_power} where one can see when DES encryption begins, and that the two frequency should be preferably be phase-aligned \citep{glitches_paper}\citep{sergei:thesis}\citep{avr_mega}. 
 
-Performing a clock-glitch attack for corrupting the execution of the instruction flow or the data being manipulated by the ATmega644 would require locating when this happens and then exploiting it. Subtleties that should be noted include that the glitch attack should be synchronized with the devices operation, something achievable by power trace analysis, and that the two frequency should be preferably be phase-aligned \citep{glitches_paper}. In our attack scenario suppose the firmware we would like to dump has at some point an \texttt{OUT p} instruction, i.e. it outputs a memory location to port \texttt{p}, and runs on some loop. Since it is less complicated to exploit program flow rather than data flow \citep{glitches_paper}, we would attempt to skip the branch instruction on the check of each loop. The AVR assembly for your typical  \texttt{while(\emph{condition}) \{code\}} loop is shown in \ref{tab:while}, along with the cycles that each instruction takes \citep{atmega_manual}.
+Performing a clock-glitch attack for corrupting the program or data flow by the ATmega644 would require locating when this happens and then exploiting it. In our attack scenario suppose the firmware we would like to dump has at some point an \texttt{OUT p} instruction, i.e. it outputs a memory location to port \texttt{p}, and runs on some loop. Since it is less complicated to exploit program flow rather than data flow \citep{glitches_paper}, we would attempt to skip the branch instruction on the check of each loop. The AVR assembly for your typical  \texttt{while(\emph{condition}) \{code\}} loop is shown in Table~\ref{tab:while}, along with the cycles that each instruction takes \citep{atmega_manual}. One could synchronize their clock with the device's by monitoring its power trace and then
 
 \begin{table}
-\caption{\footnotesize A typical while loop of the form \texttt{while(\emph{i < n}) \{ code ;\}}.}
+\caption{\footnotesize AVR assembler of  a typical while loop of the form \texttt{while(\emph{i < n}) \{ code ;\}}.}
 \label{tab:while}
 \center
 \begin{tabular}{ l l l }
+& \dots other code \dots & \\
 &LDI R16, 4 & ; initialize n, 1 cycle\\
 &LDI R17, 0 & ; initialize i, 1 cycle \\
+condition : &&  ; label\\
+& SUB R16, R17 & ; n-i, result affects ZF bit of SREG.\\
+& BREQ leave & ; if ZF = 0 branch to loop,\\
+& &  ; 1 cycle if false condition else 2\\
 loop :  & & ; label\\
 & \dots code loading from  &\\
 & memory to variable \dots & k cycles\\
-
-& INC R17 & ; increment i, 1 cycle \\
 & OUT \$18, R17 & ; output to port B\\
-& SUB R16, R17 & ; n-i, result affects ZF bit of SREG.\\
-& BREQ loop & ; if ZF = 0 branch to loop\\
+& INC R17 & ; increment i, 1 cycle \\
+& JMP condition & ; 3 cycles \\
+leave : && ; label \\
 & \dots other code \dots & \\
 \end{tabular}
 \end{table}
