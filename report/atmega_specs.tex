@@ -1,63 +1,46 @@
 \section{The AVR MCU Series}
+\red{maybe ditch the 1284. if so, rewrite to make it refer to one board only}
 \label{sec:atmega_overview}
 
-	The Atmel AVR series is an enhanced-RISC architecture MCU family that consists of the ATtiny, ATmega and ATxmega sub-categories and derivatives of the above, including 32-bit AVRs and application specific FPGAs\footnote{info:\href{http://www.atmel.com/products/microcontrollers/avr/default.aspx}{AVR family link}}. The models have varying degrees of hardware capabilities and large operating voltage windows in order to accommodate demand and integrate well with peripherals\footnote{info:\href{https://www.newbiehack.com/MicrocontrollersAlternativePowerSources.aspx}{https://www.newbiehack.com}}\footnote{info:\href{http://www.atmel.com/v2PFResults.aspx}{http://www.atmel.com/v2PFResults.aspx}}.
-	
-	Developing software for an AVR is easy as the AVRs benefit from the free \texttt{avr-libc} high-performance C run-time library(optimised for the AVR RISC architecture), the \texttt{avr-gcc} and \texttt{avr-gdb} compiler and debugger(both based on very popular and high quality GNU software tools), the \texttt{avrdude} programming software(or Atmel's proprietary \texttt{AVRStudio}) and \texttt{Simulavr} simulator software. Additionally, Atmel provides proprietary APIs for interacting with the AVR and the developers can choose from a wide variety of programmer units available for working with the AVRs\cite{book:practical_avr}.
+	The Atmel AVR series is an enhanced-RISC architecture 8-bit MCU family that consists of the ATtiny, ATmega and ATxmega sub-categories and derivatives of the above, including 32-bit AVRs and application specific FPGAs\cite{book:practical_avr}. The models have varying degrees of hardware capabilities and large operating voltage windows in order to accommodate demand and integrate well with peripherals\footnote{info:\href{https://www.newbiehack.com/MicrocontrollersAlternativePowerSources.aspx}{https://www.newbiehack.com}}\footnote{info:\href{http://www.atmel.com/v2PFResults.aspx}{http://www.atmel.com/v2PFResults.aspx}}. Developing software for an AVR is easy as the AVRs benefit from the  \texttt{avr-libc} high-performance C run-time library, the \texttt{avr-gcc} and \texttt{avr-gdb} compiler and debugger(both based on very popular and high quality GNU software tools), the \texttt{avrdude} programming software(or Atmel's \texttt{AVRStudio}) and \texttt{Simulavr} simulator software. Additionally, Atmel provides proprietary APIs for interacting with the AVR and the developers can choose from a wide variety of programmer units available for working with the AVRs\cite{book:practical_avr}.
 	
 	\subsection{ATMega Architecture and Features}				
 
-	\subsubsection{Important Feature Overview}
-	The ATmega series of MCUs is a relatively large family of MCUs and the focus of this paper is on the ATmega644 and ATmega1284. The only differences between then 1284 and the 644 is that the 1284 has got more memory available and an hardware extra timer. A summary of (some) of the features of the two units is give in Table \ref{table:avr_specs}\citep{atmega_manual}. 
-	
-	Both MCUs are an enhanced-RISC Harvard architecture 8-bit CPU. Figure \ref{fig:architectures} shows the conceptual difference between a Von Neuman (most modern PCs) and a Harvard architecture, where the key distinction lies in the separation of application code and program data into different memory sections (Harvard) and tasking the CPU with distinguishing between code and data that lives in the same memory region (Von Neuman). The 644/1284 implement a Harvard architecture for both power and computational efficiency, being designed to access more than one registers simultaneously (due to the physical wiring of the CPU), enabling them to execute an instruction per cycle. Their operating voltages can vary between 1.8V and 5.5V (maximum operating frequency 20 MHz).
-	
-	\subsubsection{Memory Organisation}
-	The 644/1284 are equipped with an EEPROM, flash memory, SRAM, a large number of general purpose registers and a large number of I/O registers (in order to be able to perform I/O) and all memory (including I/O memory mapped images) is linear, i.e. it follows the flat memory model.
-	
-	The flash memory is separated into two regions, the bootloader section and application code section. The boundary between the two sections can be configured by programming the appropriate fuses, and the page size can also be configured that way as well. Both sections hold code, however code residing in the bootloader section can execute a special instruction (\texttt{SPM}\footnote{\texttt{SPM} = Store Program Code, assembly instruction for the AVR.}) which allows the bootloader code to write to \textit{any} section in the flash memory and hence possibly modify itself(designed for purposes such as firmware upgrades). The bootloader code can be triggered by a direct jump from the application section or by programming the reset vector via the reset fuse to point to the appropriate section of the bootloader code. 
-	
-	The EEPROM is memory for data that needs to persist between reboots of the MCU and hence it is (widely) used to hold configuration variables and other non-temporary preferences the application code (or the bootloader) may need, having an average lifespan is 100,000 write cycles per page. 
-	
-	The SRAM is volatile storage and is used as the stack and heap for the software (either application code or bootloader code) as well as for storing the Register File (i.e. the 32 GP registers) I/O and Extended I/O Memory. The reserved register locations exist in order to support the use of peripheral units as well as hold program status information (e.g. the Stack Pointer can be found in one of the GP registers).Figure \ref{fig:stack} gives an overview of the SRAM hierarchy, which is slightly different (in terms of region sizes) for the 644 and the 1284 as the 1284 offers more SRAM.
+	This paper will focus on the ATmega644, an enhanced-RISC Harvard architecture 8-bit CPU with a two stage pipeline and a total of 131 instructions. Fig.~\ref{fig:architectures} shows the conceptual difference between a Von Neuman and strict Harvard architecture, where the key distinction lies in the separation of application code and program data into different memory sections (Harvard) and tasking the CPU with distinguishing between code and data that lives in the same memory region (Von Neuman). The 644/1284 implement a modified  Harvard architecture for both power and computational efficiency, being designed to access multiple memory locations simultaneously, enabling them to execute an instruction per cycle, as shown in Fig.~\ref{fig:pipeline}. The operating voltages can vary between 1.8V and 5.5V (maximum operating frequency 20 MHz)\citep{atmega_manual}.
+
+	The 644 is equipped with an2 Kb of EEPROM, 64Kb of flash memory,4Kb of SRAM, a large number of general purpose registers and a large number of I/O registers (in order to be able to perform I/O) and all memory (including I/O memory mapped images) is linear, i.e. it follows the flat memory model. The flash memory is separated into two regions, the bootloader section and application code section. The boundary between the two sections can be configured by programming the appropriate fuses, and the page size can also be configured that way as well. Both sections hold code, however code residing in the bootloader section can execute a special instruction (\texttt{SPM}\footnote{\texttt{SPM} = Store Program Code, assembly instruction for the AVR.}) which allows the bootloader code to write to \textit{any} section in the flash memory and hence possibly modify itself(designed for purposes such as firmware upgrades). The bootloader code can be triggered by a direct jump from the application section or by programming the reset vector via the reset fuse to point to the appropriate section of the bootloader code. The EEPROM is memory for data that needs to persist between reboots of the MCU and hence it is (widely) used to hold configuration variables and other non-temporary preferences the application code (or the bootloader) may need, having an average lifespan is 100,000 write cycles per page. The SRAM is volatile storage and is used as the stack and heap for the software (either application code or bootloader code) as well as for storing the Register File (i.e. the 32 GP registers) I/O and Extended I/O Memory. The reserved register locations exist in order to support the use of peripheral units as well as hold program status information (e.g. the Stack Pointer can be found in one of the GP registers). Fig.~\ref{fig:stack} gives an overview of the SRAM hierarchy for the ATmega644.
 	
 	\begin{figure}
+		\center
 		\includegraphics[scale=0.7]{img/stack.png}
-		\caption{SRAM layout for the ATmega 644 and 1284. \textbf{Reproduced from} \protect\citep{atmega_manual}.}
+		\caption{\footnotesize SRAM layout for ATmega644 (source: \protect\citep{atmega_manual}).}
 		\label{fig:stack}		
+	\end{figure}
+
+	\begin{figure}
+		\center
+		\includegraphics[scale=0.7]{img/pipeline.png}
+		\caption{\footnotesize 2-stage pipeline of the ATmega644 (source: \protect\citep{atmega_manual}).}
+		\label{fig:pipeline}		
 	\end{figure}
 	
 \begin{figure*}
 	\begin{subfigure}{0.5\textwidth}
 		\center
 		\includegraphics[scale=0.5]{img/von_neuman_arch.jpg}
-		\caption{Schematic of a Von Neuman architecture.}
+		\caption{\footnotesize Typical Von Neuman architecture.}
 		\label{fig:VN_arch}
 	\end{subfigure} 
 	~
 	\begin{subfigure}{0.5\textwidth}
 		\center
 		\includegraphics[scale=0.5]{img/harvard_arch.jpeg}
-		\caption{Schematic of a Harvard architecture.}
+		\caption{\footnotesize Strict Harvard architecture.}
 		\label{fig:H_arch}
 	\end{subfigure}
-	\caption{A comparison of different machine architectures. \textbf{Source}:\protect\citep{website:mcu_primer}.}
+	\caption{\footnotesize A comparison of different machine architectures (source: \protect\citep{website:mcu_primer}).}
 	\label{fig:architectures}
 \end{figure*}	
-		
-\begin{table}
-	\caption{{\footnotesize Memory differences for the AVR ATmega644/1284}}
-	\label{table:avr_specs}
-	\begin{tabular}{| c | p{2cm} | p{1.8cm} | p{1.5cm} |}
-		\hline
-		\textbf{Model} & \textbf{EEPROM (Kb)} & \textbf{SRAM (Kb)} & \textbf{Flash (Kb)}\\
-		\hline	\hline
-		ATmega644 & 2 & 4 & 64\\
-		ATmega1284 & 4 & 16 & 128\\
-		\hline
-	\end{tabular}
-	
-\end{table}
 	
 	\subsection{ATMega Security Features}
 	
@@ -66,7 +49,7 @@
 	The erasing is performed with the sequence of events presented above and this is important, as one does not want to remove the access protection before removing all sensitive data and hence the Lock bits are set to 1 only after the whole program memory has been erased. Even though the flash memory has an average lifespan of 10,000 write cycles (as well as programming being relatively expensive as an operation) this approach makes sense as the ultimate goal is to preserve the intellectual property on the board rather than the board itself.
 	
 	\begin{table}
-		\caption{{\footnotesize Security lock bits offered by the ATmega644 and ATmega1284. BLB stands for Boot Lock Bit and LB for Lock Bit.}}
+		\caption{\footnotesize Security lock bits offered by the ATmega644 and ATmega1284. BLB stands for Boot Lock Bit and LB for Lock Bit.}
 		\label{table:lock_bits}
 		\center
 		\begin{tabular}{| c | c | c | c |}
@@ -84,5 +67,5 @@
 		
 	\end{table}
 	
-Table \ref{table:lock_bits}	 provides an outline of the available Lock bits provided by the ATmega series. The functionality of the BLB1 group is to control access and modification of the bootloader section, group BLB0 bits control access to the application code section and group LB bits are responsible for controlling modifications on the EEPROM and Flash.A detailed explanation of their functionality and how to use them is given in \citep{atmega_manual}.
+Table~\ref{table:lock_bits}	 provides an outline of the available Lock bits provided by the ATmega series. The functionality of the BLB1 group is to control access and modification of the bootloader section, group BLB0 bits control access to the application code section and group LB bits are responsible for controlling modifications on the EEPROM and Flash.A detailed explanation of their functionality and how to use them is given in \citep{atmega_manual}.
 	
