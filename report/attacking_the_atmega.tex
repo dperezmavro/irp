@@ -5,12 +5,11 @@ In this section we present the suggested attack that should work against the ATm
 
 The suggested attack method will closely follow \citep{glitches_paper}, further supported by results from other research as well. We will be a Class-I attacker performing a non-invasive clock-glitch attack on an ATmega644-based product. The equipment we should have access should be found in any descent university's electronics laboratory and our information regarding the chip will come from datasheets. We believe that the attack engineered by \citep{glitches_paper} on the ATmega163 can be ported over to the ATmega644 due to their similarities. Both devices belong to the same family and by comparing their datasheets we can see that the 744 possesses all the hardware features that make the attack possible on the 163, namely it operates on an external clock signal and has a two stage pipeline. Furthermore, the two devices have an almost identical instruction set.\\
 
-The attack should be tailored to a particular goal and hence we should distinguish the task of recovering cryptographic material from the task of making the device output its memory contents or execute code other than it was intended to, e.g. skipping instructions or executing other instructions. In both cases monitoring the device's power consumption will help us gain some insight into what the device is doing. 
+The attack should be tailored to a particular goal and hence we should distinguish the task of recovering cryptographic material from the task of making the device output its memory contents or execute code other than it was intended to, e.g. skipping instructions or executing other instructions. In both cases monitoring the device's power consumption will help us gain some insight into what the device is doing, like in Fig.~\ref{fig:des_power}, and will furthermore allow us to synchronize with the device's operations \citep{sergei:thesis}\citep{avr_mega}. 
 
 
 
-might be hard to sync with internal clock \citep{sergei:thesis}\citep{avr_mega}
+might be hard to sync with internal clock
 
 
-
-\red{mention service that breaks chips. mention ChipWhisperer paper. perhaps mention pipeline/give examples of clock glitch. mention that no paper found targeting these devices. \citep{glitches_paper} this guy breaks and \citep{sergei:theis} and website of chinese dude that break atmels.}
+\red{mention service that breaks chips. mention ChipWhisperer paper. perhaps mention pipeline/give examples of clock glitch. mention that no paper found targeting these devices. \citep{glitches_paper} this guy breaks and \citep{sergei:thesis} and website of chinese dude that break atmels.}
