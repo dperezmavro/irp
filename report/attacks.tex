@@ -1,12 +1,11 @@
 \section{Attacks on Hardware}
 \label{sec:curr_attacks}
-
+\red{review memory remanence and invasive attacks, possibly including decap method acids, equipment needed etc. maybe add SCA}
 After getting more familiar with the attack target and its architecture, an occasionally complicated process \citep{sergei:thesis} \citep{hwre},  one is made aware of the protective mechanisms of their target and, depending on the sophistication of the protections and the goals of the attacker, one should decide between \emph{passively} or \emph{actively} attacking the chip. When performing a passive attacks one monitors the chip's normal operation and tries to infer the input-output mapping whereas in active attacks the attacker manipulates the chip or its operating environment with the aim of obtaining insight on the chips inner workings by abusing abnormal behaviour. Attacks on MCUs may attempt to recover cryptographic keys or the firmware on the device and do not necessarily target the hardware itself but can exploit flaws in algorithmic design and implementation and protocol failures, inter-component communication patterns \citep{anderson:cautionary_note} \citep{kocher:DPA} or exploiting memory remanence \citep{sergei:thesis} \citep{gutman:memory_remanence}.
 
 The following discussion closely follows Skorobogatov \citep{sergei:thesis} and the Hardware Reverse Engineering course material \citep{hwre}.
 
 	\subsection{Non-Invasive Attacks}
-	\red{maybe add SCA.}
 	Non-invasive attacks are attacks which require no depackaging or special preparation of the chip and hence leave little tamper evidence behind. These attacks might be very time consuming to find and are not guaranteed to be successful (researchers report an average exloitation rate of \~50\% \citep{sergei:thesis} \citep{glitches_paper}), but are very cheap to replicate once found.
 	
 	\subsubsection{Power Analysis}	
