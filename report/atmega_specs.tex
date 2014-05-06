@@ -1,7 +1,7 @@
 \section{The AVR MCU Series}
 \label{sec:atmega_overview}
 
-	In this paper we will focus on the ATmega644 board, of the Atmel AVR line of MCUs, as it is a widely available and popular low-cost microcontroller \citep{glitches_paper} . The AVR series is an enhanced-RISC architecture 8-bit MCU family that consists of the ATtiny, ATmega and ATxmega sub-categories,  32-bit AVRs and application specific FPGAs\cite{book:practical_avr}. The models have varying degrees of hardware capabilities and large operating voltage windows in order to accommodate demand and integrate well with peripherals\footnote{info:\href{https://www.newbiehack.com/MicrocontrollersAlternativePowerSources.aspx}{https://www.newbiehack.com}}\footnote{info:\href{http://www.atmel.com/v2PFResults.aspx}{http://www.atmel.com/v2PFResults.aspx}}. Developing software for an AVR is easy as the AVRs benefit from the  \texttt{avr-libc} high-performance library, the \texttt{avr-gcc} and \texttt{avr-gdb} compiler and debugger(both based on very popular and high quality GNU software tools), the \texttt{avrdude} programming software(or Atmel's \texttt{AVRStudio}) and \texttt{Simulavr} simulator software. Additionally, Atmel provides proprietary APIs for interacting with the AVR and the developers can choose from a wide variety of programmer units available for working with the AVRs\cite{book:practical_avr}.
+	In this paper we will focus on the ATmega644 board, of the Atmel AVR line of MCUs, as it is a widely available and popular low-cost microcontroller \citep{glitches_paper} . The AVR series is an enhanced-RISC architecture 8-bit MCU family that consists of the ATtiny, ATmega and ATxmega sub-categories,  32-bit AVRs and application specific FPGAs\cite{book:practical_avr}. The models have varying degrees of hardware capabilities and large operating voltage windows in order to accommodate demand and integrate well with peripherals\footnote{info:\href{https://www.newbiehack.com/MicrocontrollersAlternativePowerreproduced froms.aspx}{https://www.newbiehack.com}}\footnote{info:\href{http://www.atmel.com/v2PFResults.aspx}{http://www.atmel.com/v2PFResults.aspx}}. Developing software for an AVR is easy as the AVRs benefit from the  \texttt{avr-libc} high-performance library, the \texttt{avr-gcc} and \texttt{avr-gdb} compiler and debugger(both based on very popular and high quality GNU software tools), the \texttt{avrdude} programming software(or Atmel's \texttt{AVRStudio}) and \texttt{Simulavr} simulator software. Additionally, Atmel provides proprietary APIs for interacting with the AVR and the developers can choose from a wide variety of programmer units available for working with the AVRs\cite{book:practical_avr}.
 	
 	\subsection{ATMega Architecture and Features}				
 
@@ -12,14 +12,14 @@
 	\begin{figure}
 		\center
 		\includegraphics[scale=0.7]{img/stack.png}
-		\caption{\footnotesize SRAM layout for ATmega644 (source: \protect\citep{atmega_manual}).}
+		\caption{\footnotesize SRAM layout for ATmega644 (reproduced from: \protect\citep{atmega_manual}).}
 		\label{fig:stack}		
 	\end{figure}
 
 	\begin{figure}
 		\center
-		\includegraphics[scale=0.7]{img/pipeline.png}
-		\caption{\footnotesize 2-stage pipeline of the ATmega644 (source: \protect\citep{atmega_manual}).}
+		\includegraphics[scale=0.6]{img/pipeline.png}
+		\caption{\footnotesize 2-stage pipeline of the ATmega644 (reproduced from: \protect\citep{atmega_manual}).}
 		\label{fig:pipeline}		
 	\end{figure}
 	
@@ -37,7 +37,7 @@
 		\caption{\footnotesize Strict Harvard architecture.}
 		\label{fig:H_arch}
 	\end{subfigure}
-	\caption{\footnotesize A comparison of different machine architectures (source: \protect\citep{website:mcu_primer}).}
+	\caption{\footnotesize A comparison of different machine architectures (reproduced from: \protect\citep{website:mcu_primer}).}
 	\label{fig:architectures}
 \end{figure*}	
 	
@@ -46,7 +46,7 @@
 	The AVR ATmega644 is not meant to be a secure hardware module but offers firmware access control by using six lock bits responsible for controlling access to the board's memory and prevent reading or modifying the memory (e.g. prevent code executing from the bootloader section to read/write the application code section using \texttt{SPM}). This access control is not permanent, as that would limit the usefulness of the MCU and therefore one has the option to reset the lock bits (i.e. having no protection scheme enabled) by issuing a Chip Erase command, which has the effect of completely erasing the Flash, EEPROM and then the lock bits \citep{atmega_manual}. Chip erasing is performed with the sequence of events as presented and this is important, as one does not want to remove the access protection before removing all data and hence the lock bits are set to 1 only after the whole program memory has been erased. Even though the flash memory has an average lifespan of 10,000 write cycles, as well as programming being a relatively lengthy operation, this approach tries to preserve the intellectual property on the board rather than the board itself.
 	
 	\begin{table}
-		\caption{\footnotesize Security lock bits offered by the ATmega644. BLB stands for Boot Lock Bit and LB for Lock Bit. (source: \protect\citep{tech:avrfreaks} \citep{atmega_manual})}
+		\caption{\footnotesize Security lock bits offered by the ATmega644. BLB stands for Boot Lock Bit and LB for Lock Bit. (reproduced from: \protect\citep{tech:avrfreaks} \citep{atmega_manual})}
 		\label{table:lock_bits}
 		\center
 		\begin{tabular}{| c | c | c | c |}
