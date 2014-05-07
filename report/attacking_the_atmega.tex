@@ -15,14 +15,15 @@ For obtaining cryptographic material a similar approach could be taken, where on
 \caption{\footnotesize AVR assembler of  a typical while loop of the form \texttt{while(\emph{i < n}) \{ code ;\}}.}
 \label{tab:while}
 \center
-\begin{tabular}{ l l l }
+\begin{tabular}{ l l p{3cm} }
 & \dots other code \dots & \\
 &\texttt{LDI R16, 4 }& ; initialize n, 1 cycle\\
 &\texttt{LDI R17, 0 }& ; initialize i, 1 cycle \\
 condition : &&  ; label\\
 & \texttt{SUB R16, R17 }& ; n-i, result affects ZF bit of SREG.\\
-& \texttt{BREQ leave} & ; if ZF = 0 branch to loop,\\
-& &  ; 1 cycle if false condition else 2\\
+& & ; \\
+& \texttt{BREQ leave} & ; if ZF=0 branch to loop,\\
+& &  ; 1 cycle if false, else 2\\
 loop :  & & ; label\\
 & \dots code loading from  &\\
 & memory to variable \dots & ; k cycles\\
