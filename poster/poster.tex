@@ -23,9 +23,7 @@
     \begin{columns} % See Section 4.4
         \column{0.5} % See Section 4.4
             \block{Microcontroller Introduction}{
-                Microcontrollers can be found anywhere, from your cars stereo to missile launch panels. Mictrocontrollers are the CPU of a small embedded system and are usually cheap (around \pounds 2) and widely available for hobbyists to play or companies to use in their products. 
-                
-                As microcontrollers are used in serious applicationsas well, they often come with crypto-engines (AES, DES and RSA are common) and hold all sorts of information like private crypto-keys for authentication or propietary algorithm implementations in the firmware or hardware, interesting all sorts of people into the contents of a microcontroller.
+                Microcontrollers can be found anywhere, from your cars stereo to missile launch panels and are usually cheap (around \pounds 2) and packed with information! They often come with crypto-engines (AES, DES and RSA are common) and hold all sorts of information like private crypto-keys for authentication or propietary algorithm implementations in the firmware or hardware, interesting all sorts of people into the contents of a microcontroller.
                 
                 \textbf{insert cool graphic here}
             }
@@ -33,18 +31,21 @@
 				Typically microcontrollers are too small and fragile to use as they are fabricated (with fabrication lengths shrank to micro-meters) and so they are packaged\citep{hwre}. Packacking material ranges depending on the microcontroller and its intended use,  but is usually hard epoxy resin \citep{sergei:thesis} \citep{hwre}. The packaging tries to protect the microcontroller from its external environment (humidity, radiation, temperature, crashes etc.) and also from prying eyes. Military-grade chips come with a lot of additional circuitry on the packaging whose responsibility is to detect tampering and respond in a suitable manner (even self destruction!) \citep{hwre}.\\
                De-packaging is not always requierd and the methods depend on the packaging used and protective mechanisms in place, but on epoxy-packaged chips one can etch the epoxy away by using HNO$_3$ or H$_2$SO$_4$ and then cleaning the chip in an ultrasonic bath \citep{sergei:thesis} \citep{hwre}. For other packaging types, e.g. metal, ceramic or plastic, one can use similar techniques and tools, e.g. drills or a blowtorch \citep{hwre}.
                		
-		\innerblock[linewidth=0cm, bodywidth=0.43\textwidth]{}{
-			\begin{tikzfigure}[A closed ATmega328 microcontroller, with epoxy resin packaging.]
-				\includegraphics[width=0.05\textwidth]{atmega328.jpg}
+	
+		\begin{minipage}{0.5\linewidth}
+			\begin{tikzfigure}[ATmega328 with epoxy resin packaging.]
+				\includegraphics[width=0.7\textwidth]{atmega328.jpg}
 			\end{tikzfigure}
+		\end{minipage}% <--- the percent character will "comment out" the new line    
+		\begin{minipage}{0.5\linewidth}
 			\begin{tikzfigure}[The exposed die of an ATmega328.]
-				\includegraphics[width=0.05\textwidth]{atmega328_open.jpg}
+				\includegraphics[width=0.7\textwidth]{atmega328_open.jpg}
 			\end{tikzfigure}
-		}        
+		\end{minipage}
+               
+          }% end block
+                 
 
-               
-               
-          }
             \note[rotate=15, width=15cm, targetoffsetx=5cm,targetoffsety=-5cm]{tampering detection means detecting abnormalities in voltage, clock frequency, radiation, tilting etc.}
                 
         \column{0.5}
