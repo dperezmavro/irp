@@ -1,8 +1,7 @@
 \documentclass[a1paper, portrait, margin=0mm, innermargin=15mm,blockverticalspace=15mm, colspace=15mm, subcolspace=8mm]{tikzposter} 
 	\usepackage{graphicx}
-	\usepackage{subcaption}
+	\usepackage{capt-of}
 	\usepackage{pgfplots}
-	\usepackage{caption}
 	\usepackage{natbib}
 	\usepackage{hyperref}
 
@@ -50,39 +49,57 @@
                 
         \column{0.5}
         	\block{Attack Types}{
-				\textbf{Non-invasive} attacks are cheap and easy to perform and require no decapsulation. Popular methods include are power analysis and fault injection, where faults may be injected by exposing the chip to environmental conditions that it was not meant to work in.
+				\textbf{Non-invasive} attacks are cheap and easy to perform and require no decapsulation. Popular methods include are power analysis and fault injection, where faults may be injected by exposing the chip to environmental conditions that it was not meant to work in. \textbf{Non-Invasive} and \textbf{Semi-invasive} attacks are more technical, expensive and lengthier to perform as they require decapsulation and specialized machinery, but yield more information about a die. Attacks under these categories include micro-probing the device, inducing faults using lasers and physical modification of the chip using FIBs. 
+				
+	\begin{minipage}{0.5\linewidth}
+			\begin{tikzfigure}[DPA trace for DES (source : \protect \citep{kocher:DPA}).]
+				\includegraphics[width=0.9\textwidth]{power_des.png}
+				\label{des}
+			\end{tikzfigure}
+		\end{minipage}% <--- the percent character will "comment out" the new line    
+		\begin{minipage}{0.5\linewidth}
+			\begin{tikzfigure}[Chip modification using FIB.]
+				\includegraphics[width=0.7\textwidth]{fib.jpg}
+				\label{fib}
+			\end{tikzfigure}
+		\end{minipage}
+               				
 				
 				
-			Fig.~\ref{concept} describes the relative diffuclty of the attacks methods (green) and complexity of the defensive mechanisms (red), where the notions of difficulty and complexity incorporate the skill, money and machinery needed.			
+%Fig.~\ref{concept} describes the relative diffuclty of the attacks methods (green) and complexity of the defensive mechanisms (red), where the notions of difficulty and complexity incorporate the skill, money and machinery needed.			
 				
-				\begin{tikzpicture}{Relative difficulties of attack and defensive mechanisms.}
-				\label{concept}
-						\begin{axis}[ytick=\empty, bar width=30pt,symbolic x coords={No, no, Semi,semi, Full,full},xtick=data, ylabel = Difficulty,xlabel = Invasive]
-			        	    \addplot[ybar,fill=green] coordinates {
-    	    		    	    (No, 35)
-				            };		
-    	    			    \addplot[ybar, fill=red]coordinates{
-        				    	(no, 50)
-		    	        	};
-		    	        	\addplot[ybar,fill=green] coordinates {
-    	    		    	    (Semi, 60)
-				            };		
-    	    			    \addplot[ybar, fill=red]coordinates{
-        				    	(semi, 75)
-		    	        	};
-		    	        	\addplot[ybar,fill=green] coordinates {
-    	    		    	    (Full, 90)
-				            };		
-    	    			    \addplot[ybar, fill=red]coordinates{
-        				    	(full, 95)
-		    	        	};
-			    	    \end{axis}		
-					\end{tikzpicture}
-				attacks require decapsulation and are a lot more technical, expensive (to perform and repliate) and time consuming with manufacturer-equivalent machinery used. 
+				
+%				\begin{tikzfigure}%[Relative difficulties of attack and defensive mechanisms.]
+%				\captionof{figure}{Relative difficulties of attack and defensive mechanisms.}
+%				\label{concept}
+
+%						\begin{axis}[width=0.7\linewidth, height= 6cm,ylabel = Difficulty,xlabel = Invasive, ytick=\empty, bar width=30pt,symbolic x coords={No, no1, Semi,semi1, Full,full1},xtick=data]
+%			        	    \addplot[ybar,fill=green] coordinates {
+ %   	    		    	    (No, 35)
+	%			            };		
+    %	    			    \addplot[ybar, fill=red]coordinates{
+     %   				    	(no1, 50)
+		%    	        	};
+		 %   	        	\addplot[ybar,fill=green] coordinates {
+    	  %  		    	    (Semi, 60)
+			%	            };		
+    	    %			    \addplot[ybar, fill=red]coordinates{
+        	%			    	(semi1, 75)
+		    %	        	};
+		    %	        	\addplot[ybar,fill=green] coordinates {
+    	    %		    	    (Full, 90)
+			%	            };		
+    	    %			    \addplot[ybar, fill=red]coordinates{
+        	%			    	(full1, 95)
+		    %	        	};
+			 %   	    \end{axis}		
+				%	\end{tikzfigure}				
         	}
             \block{Sample Attack}{
-                provide atmega644 characteristics.
-                set attack scenario, type, setup and exact details
+                A simple clock glitch attack could be performed against an ATmega644, in order to make it dump its memory, since it operates on an external clock signal and we know how many cycles each instruction takes. We would use an FPGA to deliver both the clock signal and the glitch itself \citep{glitches_paper} \citep{pareja:glitch}. 
+                
+                We first need to synchronize with some \emph{trigger} event and count cycles from there in order to inject our glitch in the appropriate cycle. Suppose there's a \texttt{while}-loop in the firmware, and it looks similar to Table~\ref{tab:while}        
+            
             }
     \end{columns}
     
