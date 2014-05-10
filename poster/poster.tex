@@ -1,0 +1,51 @@
+\documentclass[30pt, a1paper, portrait, margin=0mm, innermargin=15mm,blockverticalspace=15mm, colspace=15mm, subcolspace=8mm]{tikzposter} 
+	\usepackage{natbib}
+	\usepackage{hyperref}
+
+    \title{Attacking Microcontrollers} 
+    \institute{Schoold of Electronics and Computer Science, University of Southampton}
+    \author{Author: Dionisio Perez-Mavrogenis (dpm3g10)\\
+			Supervisor: Klaus-Peter Zauner (kpz)}
+    \usetheme{Board} %Board is also cool
+
+    
+%\definebackgroundstyle{die_image}{
+%\includegraphics[scale=1]{opt.jpg}
+%}
+    \usebackgroundstyle{Rays}    
+    
+\begin{document}
+
+	\maketitle     
+    \begin{columns} % See Section 4.4
+        \column{0.5} % See Section 4.4
+            \block{Microcontroller Introduction}{
+                Microcontrollers can be found anywhere, from your cars stereo to missile launch panels. Mictrocontrollers are the CPU of a small embedded system and are usually cheap (around \pounds 2) and widely available for hobbyists to play or companies to use in their products. 
+                
+                As microcontrollers are used in serious applicationsas well, they often come with crypto-engines (AES, DES and RSA are common) and hold all sorts of information like private crypto-keys for authentication or propietary algorithm implementations.
+            }
+            \block{Packaging and De-packaging}{
+				Typically microcontrollers are too small to use like they are fabricated, as fabrication lengths have shrank to micro-meters, and so they are packaged\citep{hwre}. Packacking material ranges depending on the microcontroller and its intended use
+                
+                prurpose, types and packaging security
+                
+                depackaging ways, acids and stuff
+            }
+        \column{0.5}
+            \block{Sample Attack}{
+                provide atmega644 characteristics.
+                set attack scenario, type, setup and exact details
+            }
+            \block{Evaluation}{
+                Shit be broken, yo.
+                \innerblock{qwgfwg}{qgwwg}
+            }
+        \note[rotate=15]{
+			Very sexy, this is.        
+        } % See Section 4.3
+    \end{columns}
+    
+\bibliographystyle{plain}
+    
+    \block[roundedcorners=65]{}{{\footnotesize \bibliography{irp_report}}}
+\end{document}
