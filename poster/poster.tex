@@ -9,10 +9,10 @@
     \usetheme{Board} %Board is also cool
 
     
-%\definebackgroundstyle{die_image}{
-%\includegraphics[scale=1]{opt.jpg}
-%}
-    \usebackgroundstyle{Rays}    
+\definebackgroundstyle{die_image}{
+\includegraphics[height=\paperheight, width=\paperwidth]{opt.jpg}
+}
+\usebackgroundstyle{Rays}    
     
 \begin{document}
 
@@ -22,12 +22,14 @@
             \block{Microcontroller Introduction}{
                 Microcontrollers can be found anywhere, from your cars stereo to missile launch panels. Mictrocontrollers are the CPU of a small embedded system and are usually cheap (around \pounds 2) and widely available for hobbyists to play or companies to use in their products. 
                 
-                As microcontrollers are used in serious applicationsas well, they often come with crypto-engines (AES, DES and RSA are common) and hold all sorts of information like private crypto-keys for authentication or propietary algorithm implementations.
+                As microcontrollers are used in serious applicationsas well, they often come with crypto-engines (AES, DES and RSA are common) and hold all sorts of information like private crypto-keys for authentication or propietary algorithm implementations in the firmware or hardware, interesting all sorts of people into the contents of a microcontroller.
+                
+                \textbf{insert cool graphic here}
             }
             \block{Packaging and De-packaging}{
-				Typically microcontrollers are too small to use like they are fabricated, as fabrication lengths have shrank to micro-meters, and so they are packaged\citep{hwre}. Packacking material ranges depending on the microcontroller and its intended use
+				Typically microcontrollers are too small and fragile to use as they are fabricated (with fabrication lengths shrank to micro-meters) and so they are packaged\citep{hwre}. Packacking material ranges depending on the microcontroller and its intended use,  but is usually hard epoxy resin \citep{sergei:thesis} \citep{hwre}. The packaging tries to protect the microcontroller from its external environment (humidity, radiation, temperature, crashes etc.) and also from prying eyes. Military-grade chips come with a lot of additional circuitry on the packaging whose responsibility is to detect tampering and respond in a suitable manner (even destroy itself!).
                 
-                prurpose, types and packaging security
+               
                 
                 depackaging ways, acids and stuff
             }
