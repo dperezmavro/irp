@@ -6,20 +6,29 @@
 	\usepackage{hyperref}
 
     \title{Attacking Microcontrollers} 
-    \institute{Schoold of Electronics and Computer Science, University of Southampton}
+ %   \institute{Schoold of Electronics and Computer Science, University of Southampton}
     \author{Author: Dionisio Perez-Mavrogenis (dpm3g10)\\
 			Supervisor: Klaus-Peter Zauner (kpz)}
     \usetheme{Board} %Board is also cool
 
-    
+\definetitlestyle{sampletitle}{
+	width=500mm, roundedcorners=20, linewidth=2pt, innersep=2pt,
+	titletotopverticalspace=7mm, titletoblockverticalspace=10mm
+	}{
+	\begin{scope}[line width=\titlelinewidth, rounded corners=\titleroundedcorners]
+		\draw[color=blocktitlebgcolor, fill=titlebgcolor]
+		(\titleposleft,\titleposbottom) rectangle (\titleposright,\titlepostop);
+		\end{scope}
+	}
+   \usetitlestyle{sampletitle}
 \definebackgroundstyle{die_image}{
 \includegraphics[height=\paperheight, width=\paperwidth]{opt.jpg}
 }
 \usebackgroundstyle{Rays}    
     
 \begin{document}
-
-	\maketitle     
+\bibliographystyle{plain}
+\maketitle     
     \begin{columns} % See Section 4.4
         \column{0.5} % See Section 4.4
             \block{Microcontroller Introduction}{
@@ -44,7 +53,7 @@
 }% end packaging block
 
 %            \note[rotate=15, width=15cm, targetoffsetx=5cm,targetoffsety=-5cm]{tampering detection means detecting abnormalities in voltage, clock frequency, radiation, tilting etc.}
-                
+\block[roundedcorners=65]{}{{\tiny \bibliography{poster}}}
         \column{0.5}
         	\block{Attack Types}{
 				\textbf{Non-invasive} attacks are cheap and easy to perform and require no decapsulation. Popular methods include are power analysis and fault injection, where faults may be injected by exposing the chip to environmental conditions that it was not meant to work in. \textbf{Non-Invasive} and \textbf{Semi-invasive} attacks are more technical, expensive and lengthier to perform as they require decapsulation and specialized machinery, but yield more information about a die. Attacks under these categories include micro-probing the device, inducing faults using lasers and physical modification of the chip using FIBs \citep{hwre} \citep{sergei:thesis}. 
@@ -66,7 +75,7 @@
             \block{Sample Attack}{
                 A simple clock glitch attack could be performed against an ATmega644, in order to make it dump its memory. Since we know how many cycles each instruction takes we would use an FPGA to deliver both the clock signal and the glitch itself, delivering it on the appropriate cycle after a \emph{trigger} event \citep{glitches_paper}\citep{pareja:glitch}.
                 
-                Suppose there's a \texttt{while}-loop in the firmware, outputing to a pin via an \texttt{OUT} instruction somewhere (Fig.~\ref{loop}). We can count the cycles between successive outputs and use the \texttt{OUT} as our trigger, glitching the desired number of cycles after that.
+                Suppose we are targeting the loop in the firmware, shown in Fig.~\ref{loop}, outputing to a pin via \texttt{OUT}. We can count the cycles between successive outputs and use the \texttt{OUT} as our trigger, glitching the desired number of cycles after that. We know that targeting single-cycle instructions has the impact of \texttt{NOP}-ing whatever instruction follows without affecting \texttt{PC} incremention \citep{glitches_paper}, and hence we could keep glitching on \texttt{OUT}'s cycle in order to skip the \texttt{INC R17} operation and thus never make the loop condition false in order to dump as much memory as possible, i.e. view the firmware bytecode.
             
 		\begin{minipage}{0.35\linewidth}
 			\begin{tikzfigure}[{\tiny Sample glitch generation (source: \protect\citep{glitches_paper}).}]
@@ -84,8 +93,4 @@
             
 } % end sample attack block
     \end{columns}
-    
-\bibliographystyle{plain}
-    
-    \block[roundedcorners=65]{}{{\tiny \bibliography{poster}}}
 \end{document}
